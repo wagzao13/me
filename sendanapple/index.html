@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f5f1e8">
+<title>送WAGZAO一部iPhone Duo</title>
+<meta name="description" content="一个由朋友们临时起意、认真执行的小项目：送 WAGZAO 一部折叠屏 iPhone Duo。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2316120e'/%3E%3Cpath d='M17 20h8l7 17 7-17h8L36 48h-8L17 20Z' fill='%23ff5c1a'/%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   送 WAGZAO 一部 iPhone duo
+   Single-file HTML · no dependencies · fully offline
+   ============================================================ */
+
+:root{
+  --paper:#f5f1e8;
+  --paper-deep:#eee8dc;
+  --card:#fffdf8;
+  --ink:#17130f;
+  --ink-soft:#413a31;
+  --muted:#81786a;
+  --line:rgba(23,19,15,.16);
+  --orange:#ff5c1a;
+  --orange-deep:#e8480a;
+  --orange-soft:#ffb083;
+  --butter:#f4d35e;
+  --sage:#c8d6b9;
+  --green:#2f7d58;
+  --blue:#2b6cb0;
+  --sans:"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+  --serif:"Songti SC","STSong","Noto Serif CJK SC","Times New Roman",serif;
+  --mono:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace;
+  --script:"Snell Roundhand","Bradley Hand","Apple Chancery","Segoe Script",cursive;
+  --phone-color:#e2602b;
+  --phone-edge:#8c3512;
+  --phone-highlight:#ffc09d;
+  --phone-glow:rgba(255,92,26,.34);
+  --progress:0%;
+  --radius:26px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+body.modal-open{overflow:hidden}
+::selection{background:var(--orange);color:#fff}
+a{color:inherit}
+button{font:inherit;color:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+img{max-width:100%;display:block}
+h1,h2,h3,p,blockquote,figure{margin:0}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--orange);
+  outline-offset:3px;
+}
+[hidden]{display:none!important}
+.wrap{width:min(1240px,calc(100% - 48px));margin-inline:auto}
+.grain{
+  position:fixed;inset:-60px;z-index:90;pointer-events:none;opacity:.032;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+  background-size:180px 180px;
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  min-height:54px;padding:0 26px;border:1.5px solid var(--ink);border-radius:999px;
+  background:transparent;color:var(--ink);font-size:13px;font-weight:650;letter-spacing:.015em;
+  text-decoration:none;cursor:pointer;transition:transform .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease;
+}
+.btn .arrow{font-size:15px;line-height:1;transition:transform .25s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover .arrow{transform:translate(2px,-2px)}
+.btn:active{transform:translateY(0)}
+.btn-dark{background:var(--ink);color:var(--paper);box-shadow:0 8px 24px rgba(23,19,15,.16)}
+.btn-dark:hover{background:#2a241d}
+.btn-orange{background:var(--orange);color:#fff;border-color:var(--orange);box-shadow:0 8px 24px rgba(255,92,26,.2)}
+.btn-orange:hover{background:var(--orange-deep)}
+.btn.full{width:100%}
+.btn:disabled{opacity:.55;cursor:wait;transform:none}
+.text-link{
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:12px;font-weight:600;
+  padding:14px 2px;border-bottom:1px solid var(--ink);transition:color .2s,border-color .2s;
+}
+.text-link:hover{color:var(--orange);border-color:var(--orange)}
+.kicker,.section-label,.pay-eyebrow{
+  font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+}
+.kicker{display:flex;align-items:center;gap:10px;color:var(--ink-soft)}
+.kicker-dot{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 4px rgba(255,92,26,.12);animation:pulse 2.6s ease-in-out infinite}
+.kicker-sep{color:#b4aa9b}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(255,92,26,.1)}50%{box-shadow:0 0 0 8px rgba(255,92,26,.02)}}
+
+/* ---------- header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:60;background:rgba(245,241,232,.82);
+  -webkit-backdrop-filter:blur(18px) saturate(1.1);backdrop-filter:blur(18px) saturate(1.1);
+  border-bottom:1px solid transparent;transition:border-color .3s ease,background .3s ease;
+}
+.site-header.is-scrolled{border-color:var(--line);background:rgba(245,241,232,.94)}
+.header-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+.brand-mark{
+  width:35px;height:35px;display:grid;place-items:center;border-radius:10px;
+  background:var(--ink);color:var(--orange);font-size:16px;font-weight:800;
+  transform:rotate(-4deg);transition:transform .3s ease;
+}
+.brand:hover .brand-mark{transform:rotate(4deg) scale(1.04)}
+.brand-name{font-size:12px;line-height:1.3;font-weight:650;letter-spacing:-.005em}
+.brand-name small{display:block;font-family:var(--mono);font-size:8px;font-weight:400;letter-spacing:.14em;color:var(--muted);margin-top:2px}
+.nav{display:flex;align-items:center;gap:30px}
+.nav a{
+  position:relative;text-decoration:none;font-family:var(--mono);font-size:10px;
+  letter-spacing:.08em;color:var(--ink-soft);padding:9px 0;
+}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:4px;height:1px;background:var(--orange);transition:right .25s ease}
+.nav a:hover{color:var(--ink)}
+.nav a:hover::after{right:0}
+.header-cta{min-height:42px;padding:0 19px;font-size:11px;background:var(--paper);backdrop-filter:blur(10px)}
+.header-cta .arrow{font-size:12px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;padding:62px 0 92px;isolation:isolate}
+.hero::before{
+  content:"";position:absolute;width:760px;height:760px;right:-170px;top:-210px;z-index:-2;
+  background:radial-gradient(circle,rgba(255,92,26,.15),rgba(255,92,26,.04) 44%,transparent 70%);
+  border-radius:50%;
+}
+.hero::after{
+  content:"WAGZAO";position:absolute;left:-24px;bottom:-48px;z-index:-1;
+  font-size:clamp(120px,17vw,260px);font-weight:850;letter-spacing:-.075em;line-height:.75;
+  color:transparent;-webkit-text-stroke:1px rgba(23,19,15,.055);pointer-events:none;user-select:none;
+}
+.hero-inner{display:grid;grid-template-columns:1.04fr .96fr;align-items:center;gap:18px}
+.hero-copy{position:relative;z-index:4}
+.hero h1{
+  margin-top:24px;font-size:clamp(56px,6.7vw,94px);line-height:.96;letter-spacing:-.06em;font-weight:800;
+}
+.hero h1 .line{display:block;position:relative}
+.hero h1 .line-two{white-space:nowrap}
+.wagzao{position:relative;display:inline-block}
+.wagzao::after{
+  content:"";position:absolute;z-index:-1;left:-1%;right:-1%;bottom:6%;height:15%;
+  background:var(--orange);opacity:.28;border-radius:50%;transform:rotate(-1.2deg);
+}
+.iphone{font-weight:700;letter-spacing:-.07em}
+.duo{
+  position:relative;display:inline-block;border:0;background:none;padding:0 .02em;margin-left:.07em;
+  font-family:var(--script);font-size:.6em;font-weight:500;letter-spacing:0;color:var(--orange);
+  line-height:.7;transform:rotate(-7deg) translateY(-.08em);cursor:pointer;
+}
+.duo span{color:var(--ink)}
+.duo:hover{transform:rotate(-3deg) translateY(-.11em) scale(1.03)}
+.duo:focus-visible{outline-offset:8px;border-radius:6px}
+.lede{
+  max-width:475px;margin-top:27px;color:var(--ink-soft);font-size:15.5px;line-height:1.9;letter-spacing:.005em;
+}
+.lede strong{font-weight:650;color:var(--ink)}
+.hero-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:31px}
+.proof{display:flex;align-items:center;gap:14px;margin-top:35px}
+.proof-avatars{display:flex;padding-left:7px}
+.proof-avatar{
+  width:32px;height:32px;border-radius:50%;border:2px solid var(--paper);margin-left:-7px;
+  display:grid;place-items:center;font-size:10px;font-weight:650;color:var(--ink);
+  background:var(--butter);box-shadow:0 2px 4px rgba(23,19,15,.08);
+}
+.proof-avatar:nth-child(2){background:var(--sage)}
+.proof-avatar:nth-child(3){background:#f0b39f}
+.proof-avatar.plus{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:9px}
+.proof p{font-size:10.5px;line-height:1.55;color:var(--muted);letter-spacing:.01em}
+.proof strong{color:var(--ink);font-weight:650}
+.hero-note{
+  display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:7px 12px;
+  border:1px solid var(--line);border-radius:999px;background:rgba(255,253,248,.45);
+  font-family:var(--mono);font-size:9px;letter-spacing:.04em;color:var(--muted);
+}
+.hero-note span{color:var(--orange);font-size:12px}
+
+/* ---------- phone still life ---------- */
+.hero-visual{position:relative;height:656px;z-index:2}
+.duo-stage{position:absolute;left:50%;top:2px;width:548px;height:646px;transform:translateX(-50%)}
+.stage-halo{
+  position:absolute;width:438px;height:438px;right:25px;top:98px;border-radius:50%;
+  background:
+    radial-gradient(circle at 38% 30%,#ffb481 0,#ff8547 34%,#ff5c1a 63%,#df470c 100%);
+  box-shadow:0 45px 100px rgba(232,72,10,.24),inset 0 0 80px rgba(255,255,255,.08);
+}
+.stage-halo::after{
+  content:"";position:absolute;inset:34px;border:1px solid rgba(255,255,255,.24);border-radius:50%;
+}
+.orbit{position:absolute;border:1px dashed rgba(23,19,15,.22);border-radius:50%;pointer-events:none}
+.orbit-one{width:500px;height:500px;right:-5px;top:69px;transform:rotate(12deg)}
+.orbit-two{width:560px;height:330px;right:-38px;top:155px;transform:rotate(-17deg);border-color:rgba(23,19,15,.12)}
+.phone{
+  position:absolute;border-radius:44px;
+  box-shadow:0 35px 70px rgba(29,17,9,.24),0 8px 20px rgba(29,17,9,.16),inset 0 0 0 1px rgba(255,255,255,.3);
+}
+.phone::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(125deg,rgba(255,255,255,.34),transparent 26%,transparent 68%,rgba(0,0,0,.16));
+  mix-blend-mode:soft-light;
+}
+.phone-back{
+  z-index:1;left:23px;top:84px;width:212px;height:435px;transform:rotate(-10deg);
+  background:
+    radial-gradient(circle at 27% 13%,rgba(255,255,255,.36),transparent 34%),
+    linear-gradient(148deg,var(--phone-highlight) 0%,var(--phone-color) 34%,var(--phone-edge) 78%,#3d190c 100%);
+  animation:float-back 8s ease-in-out infinite;
+}
+.phone-back::after{
+  content:"";position:absolute;inset:5px;border-radius:39px;border:1px solid rgba(255,255,255,.2);
+  box-shadow:inset 0 0 25px rgba(0,0,0,.14);
+}
+.phone-front{
+  z-index:3;left:239px;top:56px;width:231px;height:474px;padding:7px;
+  background:linear-gradient(142deg,var(--phone-highlight) 0%,var(--phone-edge) 19%,var(--phone-color) 48%,var(--phone-edge) 84%,#2f1409 100%);
+  transform:rotate(7.5deg);animation:float-front 7s ease-in-out infinite;
+}
+.phone-side{position:absolute;background:linear-gradient(180deg,var(--phone-highlight),var(--phone-edge));border-radius:3px}
+.phone-back .side-a{right:-2px;top:105px;width:3px;height:49px}
+.phone-back .side-b{right:-2px;top:166px;width:3px;height:72px}
+.phone-back .side-c{left:-2px;top:132px;width:3px;height:55px}
+.camera-zone{
+  position:absolute;left:15px;top:16px;width:112px;height:112px;border-radius:31px;z-index:2;
+  background:linear-gradient(145deg,rgba(255,255,255,.32),rgba(255,255,255,.08) 40%,rgba(63,28,12,.24));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.26),0 8px 18px rgba(40,16,5,.18);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+}
+.lens{
+  position:absolute;width:41px;height:41px;border-radius:50%;background:#121113;
+  box-shadow:inset 0 0 0 3px #48464a,inset 0 0 0 6px #1a191b,inset 0 0 14px #000,0 1px 2px rgba(255,255,255,.16);
+}
+.lens::before{
+  content:"";position:absolute;inset:9px;border-radius:50%;
+  background:radial-gradient(circle at 37% 32%,#637a8d 0 5%,#17222e 29%,#080b10 66%,#000 100%);
+}
+.lens::after{
+  content:"";position:absolute;width:5px;height:5px;border-radius:50%;left:12px;top:9px;
+  background:rgba(178,218,255,.72);filter:blur(.3px);
+}
+.lens-a{left:11px;top:11px}
+.lens-b{right:11px;top:11px}
+.lens-c{left:11px;bottom:11px}
+.flash{
+  position:absolute;right:21px;bottom:27px;width:12px;height:12px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff8df,#e7c788 38%,#8f6a37 100%);
+  box-shadow:0 0 0 2px rgba(255,255,255,.08);
+}
+.mic{position:absolute;right:22px;bottom:12px;width:5px;height:5px;border-radius:50%;background:#1c1817;box-shadow:inset 0 0 2px #000}
+.back-brand{
+  position:absolute;left:0;right:0;top:54%;display:flex;flex-direction:column;align-items:center;gap:5px;
+  color:rgba(255,250,242,.9);text-shadow:0 1px 2px rgba(56,22,9,.22);
+}
+.back-brand .brand-star{font-size:24px;line-height:1;opacity:.92}
+.back-brand b{font-size:10px;letter-spacing:.24em;font-weight:600}
+.back-brand small{font-family:var(--mono);font-size:6px;letter-spacing:.31em;opacity:.58}
+.phone-front .screen{
+  position:relative;width:100%;height:100%;overflow:hidden;border-radius:37px;color:#fff;
+  background:
+    radial-gradient(circle at 15% 5%,rgba(255,112,50,.6),transparent 38%),
+    radial-gradient(circle at 96% 82%,rgba(255,192,126,.16),transparent 38%),
+    radial-gradient(circle at 47% 53%,rgba(90,31,12,.38),transparent 58%),
+    linear-gradient(158deg,#20150f 0%,#0c0a09 52%,#22120b 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);
+}
+.phone-front .screen::before{
+  content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:linear-gradient(118deg,rgba(255,255,255,.09),transparent 24%,transparent 73%,rgba(255,255,255,.035));
+}
+.island{position:absolute;z-index:6;left:50%;top:11px;width:66px;height:19px;border-radius:20px;background:#000;transform:translateX(-50%);box-shadow:0 0 0 1px rgba(255,255,255,.04)}
+.island::after{content:"";position:absolute;right:8px;top:6px;width:6px;height:6px;border-radius:50%;background:#111c27;box-shadow:inset 0 0 2px #33506d}
+.screen-status{display:flex;align-items:center;justify-content:space-between;padding:10px 17px 0;font-size:7px;font-weight:650;letter-spacing:.03em;opacity:.88}
+.status-icons{font-size:6px;letter-spacing:.08em}
+.screen-lock{padding:39px 17px 0}
+.lock-date{font-size:7.5px;color:rgba(255,255,255,.58);letter-spacing:.08em}
+.lock-time{font-size:52px;line-height:1;font-weight:500;letter-spacing:-.06em;margin-top:3px;color:#fff8f1;text-shadow:0 3px 18px rgba(255,126,70,.16)}
+.screen-widget{
+  position:absolute;left:13px;right:13px;top:204px;padding:12px;border-radius:17px;
+  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.15);-webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px);
+  box-shadow:0 10px 30px rgba(0,0,0,.14);
+}
+.widget-top{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:6.5px;letter-spacing:.08em;color:rgba(255,255,255,.72)}
+.widget-top span{display:flex;align-items:center;gap:4px}
+.widget-dot{width:4px;height:4px;border-radius:50%;background:var(--orange-soft);box-shadow:0 0 5px var(--orange-soft)}
+.widget-top b{font-size:9px;color:#fff;letter-spacing:-.02em}
+.widget-bar{height:4px;border-radius:10px;background:rgba(255,255,255,.16);margin:10px 0 8px;overflow:hidden}
+.widget-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ffb07a,#ff5c1a);width:var(--progress);transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.widget-bottom{display:flex;justify-content:space-between;font-size:6.5px;color:rgba(255,255,255,.54)}
+.screen-notification{
+  position:absolute;left:13px;right:13px;top:310px;display:flex;align-items:center;gap:8px;
+  padding:9px 10px;border-radius:13px;background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.1);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+}
+.notif-icon{
+  width:24px;height:24px;border-radius:7px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--orange);color:#fff;font-size:10px;
+}
+.screen-notification b{display:block;font-size:6.5px;line-height:1.4;font-weight:600}
+.screen-notification small{display:block;margin-top:2px;font-size:6px;line-height:1.4;color:rgba(255,255,255,.54)}
+.screen-bottom{position:absolute;left:20px;right:20px;bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.camera-dot{width:19px;height:19px;border-radius:50%;background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.lock-line{width:64px;height:3px;border-radius:4px;background:rgba(255,255,255,.62)}
+.phone-front .side-a,.phone-front .side-b{right:-2px;background:linear-gradient(180deg,var(--phone-highlight),var(--phone-edge));position:absolute;border-radius:3px}
+.phone-front .side-a{top:114px;width:3px;height:45px}
+.phone-front .side-b{top:174px;width:3px;height:65px}
+
+.sticker{position:absolute;z-index:5}
+.sticker-target{
+  right:2px;top:19px;width:170px;padding:15px 15px 14px;transform:rotate(6deg);
+  background:var(--card);border:1.5px solid var(--ink);border-radius:13px;
+  box-shadow:5px 6px 0 rgba(23,19,15,.12);
+}
+.sticker-tape{position:absolute;left:50%;top:-9px;width:57px;height:17px;transform:translateX(-50%) rotate(-2deg);background:rgba(244,211,94,.7);border:1px solid rgba(23,19,15,.08)}
+.sticker-target small{display:block;font-family:var(--mono);font-size:6.5px;letter-spacing:.12em;color:var(--muted);margin-bottom:5px}
+.sticker-target b{display:block;font-size:12px;line-height:1.25;letter-spacing:-.02em}
+.sticker-target span:not(.sticker-tape){display:block;margin-top:4px;font-size:9px;color:var(--muted)}
+.sticker-percent{
+  right:15px;bottom:49px;width:112px;height:112px;border-radius:50%;transform:rotate(7deg);
+  background:var(--butter);border:1.5px solid var(--ink);box-shadow:4px 5px 0 rgba(23,19,15,.15);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1px;
+}
+.sticker-percent small{font-family:var(--mono);font-size:6px;letter-spacing:.16em;opacity:.66}
+.sticker-percent strong{font-size:25px;letter-spacing:-.06em;line-height:1.05}
+.sticker-percent span{font-family:var(--serif);font-size:9px;opacity:.72}
+.stamp{
+  position:absolute;left:-8px;top:8px;width:100px;height:100px;border-radius:50%;border:1.3px dashed var(--ink);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;
+  font-family:var(--mono);font-size:7px;line-height:1.5;letter-spacing:.1em;text-align:center;
+  color:var(--ink-soft);transform:rotate(-13deg);background:rgba(245,241,232,.38);
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);animation:spin-slow 40s linear infinite;
+}
+.stamp b{font-size:14px;line-height:1;color:var(--orange);font-family:var(--sans)}
+.hand-note{
+  position:absolute;left:45px;bottom:26px;z-index:6;transform:rotate(-5deg);
+  font-family:var(--script);font-size:23px;color:var(--ink-soft);white-space:nowrap;
+}
+.hand-note span{color:var(--orange);font-size:16px}
+.scribble{position:absolute;left:232px;bottom:53px;width:63px;height:53px;overflow:visible;transform:rotate(13deg);opacity:.8}
+.scribble path{fill:none;stroke:var(--ink-soft);stroke-width:1.25;stroke-linecap:round;opacity:.68}
+.hero-spark{position:absolute;color:var(--orange);pointer-events:none}
+.spark-one{right:32px;top:150px;font-size:24px;transform:rotate(12deg)}
+.spark-two{left:100px;top:18px;font-size:15px;opacity:.7;transform:rotate(-18deg)}
+@keyframes float-front{0%,100%{transform:rotate(7.5deg) translateY(0)}50%{transform:rotate(6.4deg) translateY(-9px)}}
+@keyframes float-back{0%,100%{transform:rotate(-10deg) translateY(0)}50%{transform:rotate(-8.8deg) translateY(8px)}}
+@keyframes spin-slow{to{transform:rotate(347deg)}}
+
+
+/* ---------- foldable iPhone Duo still life ---------- */
+.duo-open{
+  position:absolute;left:95px;top:94px;width:438px;height:430px;z-index:3;padding:7px;
+  border-radius:31px;transform:rotate(3.5deg);transform-origin:50% 60%;
+  background:linear-gradient(145deg,var(--phone-highlight) 0%,var(--phone-color) 18%,var(--phone-edge) 55%,#171310 100%);
+  box-shadow:0 45px 80px rgba(30,17,9,.3),0 8px 24px rgba(30,17,9,.18),inset 0 0 0 1px rgba(255,255,255,.38);
+  animation:float-duo 7s ease-in-out infinite;
+}
+.duo-open::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(120deg,rgba(255,255,255,.34),transparent 24%,transparent 72%,rgba(0,0,0,.18));
+  mix-blend-mode:soft-light;
+}
+.duo-screen{
+  position:relative;height:100%;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;
+  border-radius:25px;background:#0c0908;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);
+}
+.duo-panel{position:relative;min-width:0;overflow:hidden;padding:13px 14px}
+.duo-panel-left{
+  color:#fff8f1;
+  background:
+    radial-gradient(circle at 16% 7%,rgba(255,112,50,.55),transparent 39%),
+    radial-gradient(circle at 96% 90%,rgba(255,174,110,.12),transparent 40%),
+    linear-gradient(160deg,#24150f 0%,#0b0908 58%,#1e110b 100%);
+}
+.duo-panel-right{
+  color:#17130f;
+  background:
+    radial-gradient(circle at 82% 4%,rgba(255,133,70,.13),transparent 35%),
+    linear-gradient(155deg,#f9f3e9 0%,#efe6d7 62%,#e6dac8 100%);
+}
+.duo-status{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:5.5px;letter-spacing:.03em;opacity:.75;padding:0 2px}
+.duo-date{font-size:7px;color:rgba(255,255,255,.56);letter-spacing:.06em;margin-top:34px}
+.duo-time{font-size:43px;line-height:1;font-weight:500;letter-spacing:-.065em;margin-top:3px;color:#fff8f1}
+.duo-widget{
+  position:absolute;left:14px;right:14px;bottom:57px;padding:11px;border-radius:15px;
+  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.15);-webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px);
+  box-shadow:0 10px 28px rgba(0,0,0,.13);
+}
+.duo-widget-top{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:5.5px;letter-spacing:.07em;color:rgba(255,255,255,.72)}
+.duo-widget-top span{display:flex;align-items:center;gap:4px}
+.duo-widget-top i{width:4px;height:4px;border-radius:50%;background:var(--orange-soft);box-shadow:0 0 5px var(--orange-soft)}
+.duo-widget-top b{font-size:8px;color:#fff;letter-spacing:-.02em}
+.duo-widget-bar{height:3px;border-radius:8px;background:rgba(255,255,255,.15);margin:8px 0 7px;overflow:hidden}
+.duo-widget-bar i{display:block;height:100%;width:var(--progress);border-radius:inherit;background:linear-gradient(90deg,#ffb07a,#ff5c1a);transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.duo-widget-bottom{display:flex;justify-content:space-between;font-size:5.5px;color:rgba(255,255,255,.55)}
+.duo-home-dots{position:absolute;left:15px;bottom:17px;display:flex;gap:9px}
+.duo-home-dots i{width:17px;height:17px;border-radius:5px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.12)}
+.duo-home-dots i:nth-child(2){background:rgba(255,92,26,.28);border-color:rgba(255,92,26,.35)}
+.duo-home-dots i:nth-child(3){background:rgba(244,211,94,.18)}
+.duo-punch{position:absolute;right:15px;top:11px;width:6px;height:6px;border-radius:50%;background:#15110e;box-shadow:inset 0 0 2px #3c3a38}
+.duo-right-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:5px;letter-spacing:.12em;color:rgba(23,19,15,.42);margin-top:2px}
+.duo-photo-card{
+  position:relative;margin-top:13px;height:167px;padding:12px;border-radius:15px;overflow:hidden;
+  color:#fff;background:
+    radial-gradient(circle at 78% 20%,rgba(255,226,187,.8),transparent 26%),
+    linear-gradient(145deg,#ff9c63 0%,#f16628 46%,#a92c07 100%);
+  box-shadow:0 12px 22px rgba(113,41,15,.15);
+}
+.duo-photo-card::before{content:"";position:absolute;width:105px;height:105px;border-radius:50%;right:-28px;top:-33px;background:rgba(255,240,218,.26);border:1px solid rgba(255,255,255,.25)}
+.duo-photo-card>span{position:relative;z-index:1;font-family:var(--mono);font-size:4.5px;letter-spacing:.11em;opacity:.72}
+.duo-photo-card strong{position:relative;z-index:1;display:block;margin-top:20px;font-size:23px;line-height:1.12;letter-spacing:-.065em;font-weight:750}
+.duo-photo-card i{position:absolute;right:12px;bottom:3px;font-style:normal;font-size:34px;opacity:.62}
+.duo-note-card{margin-top:9px;padding:9px 10px;border-radius:11px;border:1px solid rgba(23,19,15,.1);background:rgba(255,255,255,.4)}
+.duo-note-card small{display:block;font-family:var(--mono);font-size:4.5px;letter-spacing:.1em;color:rgba(23,19,15,.42)}
+.duo-note-card p{font-family:var(--serif);font-size:8.5px;line-height:1.6;margin-top:3px;letter-spacing:-.01em}
+.duo-dock{position:absolute;left:14px;right:14px;bottom:15px;display:flex;justify-content:center;gap:9px}
+.duo-dock span{width:18px;height:18px;border-radius:5px;border:1px solid rgba(23,19,15,.1);background:rgba(255,255,255,.5)}
+.duo-dock span:nth-child(2){background:var(--orange);border-color:var(--orange)}
+.duo-dock span:nth-child(4){background:rgba(23,19,15,.08)}
+.duo-hinge{
+  position:absolute;left:50%;top:7px;bottom:7px;width:42px;transform:translateX(-50%);z-index:5;pointer-events:none;
+  background:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.2) 23%,rgba(255,255,255,.08) 43%,rgba(255,255,255,.14) 50%,rgba(0,0,0,.34) 58%,rgba(0,0,0,.08) 80%,transparent 100%);
+}
+.duo-hinge::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:3px;transform:translateX(-50%);background:linear-gradient(180deg,transparent,rgba(255,255,255,.32) 8%,rgba(255,255,255,.1) 48%,rgba(0,0,0,.28) 92%,transparent);filter:blur(.4px)}
+.duo-hinge::after{content:"";position:absolute;left:50%;top:1%;bottom:1%;width:1px;background:rgba(255,255,255,.24);box-shadow:0 0 12px rgba(0,0,0,.4)}
+.closed-duo{
+  position:absolute;left:-4px;top:166px;width:174px;height:346px;z-index:2;border-radius:29px;
+  transform:rotate(-12deg);transform-origin:50% 60%;
+  background:
+    radial-gradient(circle at 26% 12%,rgba(255,255,255,.32),transparent 33%),
+    linear-gradient(148deg,var(--phone-highlight) 0%,var(--phone-color) 34%,var(--phone-edge) 82%,#2b140b 100%);
+  box-shadow:0 32px 65px rgba(30,17,9,.24),0 9px 20px rgba(30,17,9,.16),inset 0 0 0 1px rgba(255,255,255,.3);
+  animation:float-closed 8s ease-in-out infinite;
+}
+.closed-duo::after{
+  content:"";position:absolute;inset:5px;border-radius:24px;border:1px solid rgba(255,255,255,.2);
+  box-shadow:inset 0 0 24px rgba(0,0,0,.12);
+}
+.closed-camera{
+  position:absolute;left:12px;top:13px;width:101px;height:54px;border-radius:17px;padding:8px;
+  display:flex;align-items:center;gap:6px;
+  background:linear-gradient(140deg,rgba(255,255,255,.28),rgba(255,255,255,.07) 55%,rgba(58,24,10,.18));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25),0 7px 15px rgba(43,20,8,.14);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+}
+.duo-lens{position:absolute;width:34px;height:34px;border-radius:50%;background:#121113;box-shadow:inset 0 0 0 3px #48464a,inset 0 0 0 6px #1a191b,inset 0 0 12px #000}
+.duo-lens::before{content:"";position:absolute;inset:8px;border-radius:50%;background:radial-gradient(circle at 37% 32%,#637a8d 0 5%,#17222e 29%,#080b10 66%,#000 100%)}
+.duo-lens::after{content:"";position:absolute;width:4px;height:4px;border-radius:50%;left:10px;top:8px;background:rgba(178,218,255,.68)}
+.duo-lens-a{left:8px;top:9px}
+.duo-lens-b{left:47px;top:9px}
+.duo-flash{position:absolute;right:8px;top:24px;width:7px;height:7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff8df,#e2bf80 42%,#886331)}
+.closed-brand{position:absolute;left:0;right:0;top:49%;display:flex;flex-direction:column;align-items:center;gap:4px;color:rgba(255,250,242,.88);text-shadow:0 1px 4px rgba(42,20,9,.34)}
+.closed-brand>span{font-size:20px;line-height:1}
+.closed-brand b{font-size:9px;letter-spacing:.24em;font-weight:600}
+.closed-brand small{font-family:var(--mono);font-size:5px;letter-spacing:.28em;opacity:.58}
+.closed-seam{position:absolute;left:23%;top:5px;bottom:5px;width:1px;background:linear-gradient(transparent,rgba(255,255,255,.34) 12%,rgba(255,255,255,.1) 50%,rgba(0,0,0,.2) 88%,transparent);box-shadow:1px 0 0 rgba(0,0,0,.09)}
+.duo-side-btn{position:absolute;right:-2px;top:112px;width:3px;height:55px;border-radius:3px;background:linear-gradient(180deg,var(--phone-highlight),var(--phone-edge))}
+.folded-tag{position:absolute;left:11px;bottom:11px;padding:3px 5px;border-radius:3px;background:rgba(0,0,0,.28);color:rgba(255,255,255,.7);font-family:var(--mono);font-size:4.5px;letter-spacing:.09em}
+@keyframes float-duo{0%,100%{transform:rotate(3.5deg) translateY(0)}50%{transform:rotate(2.7deg) translateY(-8px)}}
+@keyframes float-closed{0%,100%{transform:rotate(-12deg) translateY(0)}50%{transform:rotate(-10.7deg) translateY(7px)}}
+
+/* configurator: foldable preview + single-model spec */
+.duo-spec{
+  display:flex;align-items:center;gap:12px;padding:13px 14px;border:1.2px solid var(--ink);border-radius:13px;
+  background:linear-gradient(120deg,rgba(255,92,26,.07),rgba(255,253,248,.4));margin-bottom:23px;
+}
+.duo-spec-star{width:33px;height:33px;border-radius:10px;display:grid;place-items:center;background:var(--orange);color:#fff;font-size:15px;flex-shrink:0}
+.duo-spec-text{min-width:0}
+.duo-spec-text>span{display:block;font-family:var(--mono);font-size:6.5px;letter-spacing:.1em;color:var(--muted)}
+.duo-spec-text strong{display:block;font-size:16px;line-height:1.25;letter-spacing:-.035em;margin-top:2px;font-weight:700}
+.duo-spec-text small{display:block;font-size:8px;line-height:1.4;color:var(--muted);margin-top:2px}
+.duo-spec-price{margin-left:auto;font-family:var(--mono);font-size:8px;color:var(--orange-deep);white-space:nowrap;align-self:flex-start;padding-top:2px}
+.preview-duo{position:absolute;inset:0;z-index:2;pointer-events:none}
+.preview-duo-open{
+  position:absolute;left:71%;top:47%;width:242px;height:205px;border-radius:19px;z-index:1;
+  transform:translate(-50%,-50%) rotate(7deg);overflow:hidden;padding:8px;
+  background:linear-gradient(145deg,#514f4d,#171513 55%,#4a240f);
+  box-shadow:18px 25px 45px rgba(40,23,11,.25);
+}
+.preview-duo-open::before{
+  content:"";position:absolute;inset:8px;border-radius:12px;
+  background:
+    radial-gradient(circle at 17% 14%,rgba(255,120,57,.55),transparent 34%),
+    linear-gradient(145deg,#2b1810,#0b0908 55%,#28150c);
+}
+.preview-duo-open::after{content:"";position:absolute;left:50%;top:8px;bottom:8px;width:30px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(0,0,0,.28),rgba(255,255,255,.08),rgba(0,0,0,.25),transparent)}
+.preview-duo-open>span{position:relative;z-index:2;display:block;font-family:var(--mono);font-size:6px;letter-spacing:.12em;color:rgba(255,255,255,.55);margin:10px 0 0 38px}
+.preview-duo-open>b{position:relative;z-index:2;display:block;font-family:var(--serif);font-size:31px;line-height:1;color:#fff8f1;margin:4px 0 0 36px;letter-spacing:-.04em}
+.preview-duo-open>small{position:absolute;z-index:2;left:42px;bottom:15px;font-family:var(--mono);font-size:4.5px;letter-spacing:.1em;color:rgba(255,255,255,.45)}
+.preview-duo-body{
+  position:absolute;left:37%;top:52%;width:188px;height:392px;border-radius:41px;z-index:3;padding:1px;
+  transform:translate(-50%,-50%) rotate(-13deg);
+  background:
+    radial-gradient(circle at 25% 11%,rgba(255,255,255,.32),transparent 33%),
+    linear-gradient(145deg,var(--phone-highlight) 0%,var(--phone-color) 35%,var(--phone-edge) 81%,#34150a 100%);
+  box-shadow:27px 38px 55px rgba(42,25,12,.3),inset 0 0 0 1px rgba(255,255,255,.32);
+  transition:background .55s ease,transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.preview-duo-body::after{content:"";position:absolute;inset:5px;border-radius:36px;border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 0 24px rgba(0,0,0,.14)}
+.preview-duo-camera{
+  position:absolute;left:13px;top:13px;width:102px;height:54px;border-radius:17px;z-index:2;
+  background:linear-gradient(140deg,rgba(255,255,255,.3),rgba(58,24,10,.18));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25),0 8px 15px rgba(43,20,8,.16);
+}
+.preview-duo-camera .duo-lens{width:36px;height:36px}
+.preview-duo-camera .duo-lens-a{left:8px;top:9px}
+.preview-duo-camera .duo-lens-b{left:48px;top:9px}
+.preview-duo-camera .duo-flash{right:7px;top:24px}
+.preview-duo-brand{position:absolute;left:0;right:0;top:48%;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(255,250,242,.84);text-shadow:0 1px 4px rgba(42,20,9,.28)}
+.preview-duo-brand span{font-size:22px;line-height:1}
+.preview-duo-brand small{font-family:var(--mono);font-size:5.5px;letter-spacing:.25em;opacity:.58}
+.preview-duo-seam{position:absolute;left:23%;top:5px;bottom:5px;width:1px;background:linear-gradient(transparent,rgba(255,255,255,.32) 12%,rgba(255,255,255,.08) 50%,rgba(0,0,0,.2) 88%,transparent)}
+.preview-duo-side{position:absolute;right:-2px;top:112px;width:3px;height:62px;border-radius:3px;background:linear-gradient(180deg,var(--phone-highlight),var(--phone-edge))}
+
+/* ---------- marquee ---------- */
+.marquee{overflow:hidden;background:var(--ink);color:var(--paper);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.marquee-track{display:flex;width:max-content;animation:marquee 30s linear infinite;will-change:transform}
+.marquee-group{display:flex;align-items:center;flex-shrink:0}
+.marquee-item{
+  display:flex;align-items:center;gap:25px;padding:16px 25px 16px 0;white-space:nowrap;
+  font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+}
+.marquee-item .star{color:var(--orange);font-size:13px;letter-spacing:0}
+.marquee-item em{font-family:var(--serif);font-size:13px;letter-spacing:.03em;text-transform:none;color:var(--orange-soft)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+.section{position:relative;padding:106px 0}
+.section-label{
+  display:flex;align-items:center;gap:13px;padding-top:15px;border-top:1px solid var(--line);
+  color:var(--muted);margin-bottom:48px;
+}
+.section-label .index{color:var(--orange);font-weight:600}
+.section-label .spacer{flex:1}
+.section-label .cn{font-family:var(--sans);letter-spacing:.12em;font-size:9px}
+.display{
+  font-size:clamp(40px,4.6vw,64px);line-height:1.07;letter-spacing:-.055em;font-weight:750;
+}
+.display em{font-family:var(--serif);font-weight:400;font-style:italic;color:var(--orange);letter-spacing:-.03em}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.is-in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+
+/* ---------- why ---------- */
+.why{padding-top:100px}
+.why-grid{display:grid;grid-template-columns:.86fr 1.14fr;gap:76px;align-items:start}
+.why-title p{max-width:330px;margin-top:24px;color:var(--muted);font-size:13px;line-height:1.85}
+.reason-list{border-top:1.5px solid var(--ink)}
+.reason{
+  display:grid;grid-template-columns:52px 1fr auto;gap:18px;align-items:start;
+  padding:27px 3px;border-bottom:1px solid var(--line);transition:padding .25s ease,background .25s ease;
+}
+.reason:hover{padding-left:10px;background:rgba(255,253,248,.55)}
+.reason-num{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--orange);padding-top:7px}
+.reason h3{font-size:23px;font-weight:650;letter-spacing:-.045em;margin-bottom:7px}
+.reason p{max-width:420px;font-size:13px;line-height:1.75;color:var(--muted)}
+.reason-tag{
+  margin-top:4px;padding:5px 9px;border:1px solid var(--line);border-radius:999px;
+  font-family:var(--mono);font-size:7px;letter-spacing:.06em;color:var(--muted);white-space:nowrap;
+}
+.quote-card{
+  position:relative;margin-top:68px;display:grid;grid-template-columns:.8fr 1.2fr;gap:46px;align-items:center;
+  padding:38px 44px;background:var(--butter);border:1.5px solid var(--ink);border-radius:22px;
+  box-shadow:7px 8px 0 var(--ink);
+}
+.quote-left{position:relative;padding-left:8px}
+.quote-mark{font-family:var(--serif);font-size:112px;line-height:.6;color:var(--ink);opacity:.95}
+.quote-left span{display:block;margin-top:23px;font-family:var(--mono);font-size:8px;letter-spacing:.14em;opacity:.62}
+.quote-card blockquote{font-family:var(--serif);font-size:clamp(20px,2.1vw,27px);line-height:1.6;letter-spacing:-.02em}
+.quote-card cite{display:block;margin-top:17px;font-family:var(--mono);font-size:8.5px;font-style:normal;letter-spacing:.04em;opacity:.64}
+.quote-seal{
+  position:absolute;right:26px;top:-24px;background:var(--paper);width:57px;height:57px;border:1px solid rgba(23,19,15,.35);border-radius:50%;
+  display:grid;place-items:center;transform:rotate(12deg);font-family:var(--mono);font-size:7px;line-height:1.3;text-align:center;letter-spacing:.06em;
+}
+
+/* ---------- configurator ---------- */
+.config-section{background:var(--paper-deep);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
+.config-section::before{
+  content:"CONFIGURE";position:absolute;right:-20px;top:54px;font-size:clamp(80px,11vw,150px);font-weight:800;
+  letter-spacing:-.07em;color:transparent;-webkit-text-stroke:1px rgba(23,19,15,.055);pointer-events:none;
+}
+.config-head{display:grid;grid-template-columns:1fr .6fr;align-items:end;gap:50px;margin-bottom:45px;position:relative}
+.config-head p{max-width:345px;justify-self:end;color:var(--muted);font-size:12.5px;line-height:1.8;padding-bottom:6px}
+.config-shell{
+  position:relative;display:grid;grid-template-columns:.88fr 1.12fr;overflow:hidden;
+  background:var(--card);border:1.5px solid var(--ink);border-radius:28px;box-shadow:10px 11px 0 var(--ink);
+}
+.config-preview{
+  position:relative;min-height:566px;overflow:hidden;padding:28px;
+  background:
+    radial-gradient(circle at 65% 38%,var(--phone-glow),transparent 55%),
+    linear-gradient(145deg,#e9dfd1,#d8cdbd);
+  border-right:1.5px solid var(--ink);
+}
+.config-preview::before{
+  content:"";position:absolute;inset:0;opacity:.24;
+  background-image:linear-gradient(rgba(23,19,15,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(23,19,15,.12) 1px,transparent 1px);
+  background-size:34px 34px;
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent 78%);mask-image:linear-gradient(to bottom,#000,transparent 78%);
+}
+.preview-label{position:relative;z-index:3;display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:8px;letter-spacing:.12em;color:var(--ink-soft)}
+.preview-label::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.preview-grid-text{
+  position:absolute;left:20px;bottom:-31px;font-size:214px;line-height:1;font-weight:800;letter-spacing:-.1em;
+  color:transparent;-webkit-text-stroke:1px rgba(23,19,15,.11);user-select:none;
+}
+.preview-phone{
+  position:absolute;z-index:2;left:50%;top:54%;width:206px;height:422px;border-radius:43px;
+  transform:translate(-50%,-50%) rotate(-13deg);
+  background:
+    radial-gradient(circle at 25% 12%,rgba(255,255,255,.32),transparent 33%),
+    linear-gradient(145deg,var(--phone-highlight) 0%,var(--phone-color) 36%,var(--phone-edge) 80%,#38170a 100%);
+  box-shadow:25px 38px 55px rgba(42,25,12,.3),inset 0 0 0 1px rgba(255,255,255,.3);
+  transition:background .55s ease,transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.preview-phone::after{
+  content:"";position:absolute;inset:5px;border-radius:38px;
+  border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 0 24px rgba(0,0,0,.14);
+}
+.preview-camera{
+  position:absolute;left:14px;top:14px;width:108px;height:108px;border-radius:30px;
+  background:linear-gradient(140deg,rgba(255,255,255,.33),rgba(58,24,10,.18));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.26),0 8px 15px rgba(43,20,8,.18);
+}
+.preview-lens{position:absolute;width:39px;height:39px;border-radius:50%;background:#111;box-shadow:inset 0 0 0 3px #3f3c3f,inset 0 0 0 6px #181719,0 1px 2px rgba(255,255,255,.14)}
+.preview-lens::before{content:"";position:absolute;inset:9px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#657c8d 0 5%,#14212b 30%,#05080a 100%)}
+.preview-lens.l1{left:10px;top:10px}.preview-lens.l2{right:10px;top:10px}.preview-lens.l3{left:10px;bottom:10px}
+.preview-flash{position:absolute;right:20px;bottom:25px;width:11px;height:11px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff8df,#d7b779 42%,#7d5c32)}
+.preview-brand{position:absolute;left:0;right:0;top:53%;display:flex;flex-direction:column;align-items:center;gap:4px;color:rgba(255,250,242,.82)}
+.preview-brand span{font-size:21px}.preview-brand small{font-family:var(--mono);font-size:5.5px;letter-spacing:.24em;opacity:.6}
+.preview-tag{
+  position:absolute;z-index:4;right:22px;bottom:26px;padding:12px 14px;background:var(--card);
+  border:1.3px solid var(--ink);border-radius:10px;transform:rotate(3deg);box-shadow:4px 4px 0 rgba(23,19,15,.15);
+}
+.preview-tag span{display:block;font-family:var(--mono);font-size:6.5px;letter-spacing:.09em;color:var(--muted)}
+.preview-tag b{display:block;font-size:18px;letter-spacing:-.04em;margin-top:2px}
+.config-panel{padding:38px 42px 34px;display:flex;flex-direction:column}
+.option-label{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:12px}
+.option-label span{font-family:var(--mono);font-size:8px;letter-spacing:.12em;color:var(--muted)}
+.option-label b{font-size:10.5px;font-weight:600;color:var(--ink-soft)}
+.option-group + .option-group{margin-top:23px}
+.model-tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.model-tab{
+  text-align:left;padding:11px 13px;background:transparent;border:1.3px solid var(--line);border-radius:11px;
+  cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .2s;
+}
+.model-tab:hover{border-color:var(--ink);transform:translateY(-1px)}
+.model-tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.model-tab strong{display:block;font-size:11px;line-height:1.2;font-weight:650;letter-spacing:-.015em}
+.model-tab small{display:block;font-family:var(--mono);font-size:7px;letter-spacing:.01em;margin-top:4px;color:var(--muted)}
+.model-tab[aria-pressed="true"] small{color:rgba(245,241,232,.55)}
+.model-blurb{margin-top:10px;min-height:17px;font-size:9.5px;line-height:1.5;color:var(--muted);font-style:italic}
+.color-list{display:flex;flex-wrap:wrap;gap:8px}
+.color-btn{
+  display:inline-flex;align-items:center;gap:7px;padding:6px 10px 6px 7px;border:1.2px solid var(--line);
+  border-radius:999px;background:transparent;cursor:pointer;font-size:8.5px;color:var(--ink-soft);
+  transition:border-color .2s,background .2s;
+}
+.color-btn:hover{border-color:var(--ink)}
+.color-btn[aria-pressed="true"]{border-color:var(--ink);background:rgba(23,19,15,.05)}
+.color-dot{width:17px;height:17px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.16)}
+.storage-list{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.storage-btn{
+  padding:10px 5px 9px;border:1.2px solid var(--line);border-radius:9px;background:transparent;cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.storage-btn:hover{border-color:var(--ink)}
+.storage-btn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.storage-btn strong{display:block;font-size:10px;font-weight:600;letter-spacing:-.02em}
+.storage-btn small{display:block;margin-top:3px;font-family:var(--mono);font-size:6.5px;color:var(--muted)}
+.storage-btn[aria-pressed="true"] small{color:rgba(245,241,232,.55)}
+
+.duo-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:23px 0 0;padding:15px 0 0;border-top:1px solid var(--line)}
+.duo-facts div{display:flex;flex-direction:column;gap:3px}
+.duo-facts span{font-size:13px;line-height:1;letter-spacing:-.04em;font-weight:700;white-space:nowrap}
+.duo-facts small{font-family:var(--mono);font-size:6px;letter-spacing:.04em;color:var(--muted);white-space:nowrap}
+.config-total{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+  margin-top:auto;padding-top:25px;border-top:1px solid var(--line);
+}
+.config-total>div>span{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
+.config-total strong{font-size:36px;line-height:1;letter-spacing:-.055em;font-weight:750;transition:opacity .18s}
+.config-total .btn{min-height:47px;padding:0 20px;font-size:11px;flex-shrink:0}
+.config-fineprint{margin-top:15px;font-family:var(--mono);font-size:7px;line-height:1.65;letter-spacing:.015em;color:var(--muted)}
+
+/* ---------- ledger ---------- */
+.progress-section{padding-top:106px}
+.progress-head{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:42px}
+.progress-head .display{max-width:620px}
+.progress-head p{max-width:260px;color:var(--muted);font-size:11.5px;line-height:1.8;padding-bottom:6px}
+.ledger-shell{
+  display:grid;grid-template-columns:1.04fr .96fr;background:var(--card);border:1.5px solid var(--ink);
+  border-radius:27px;overflow:hidden;box-shadow:9px 10px 0 var(--ink);
+}
+.ledger-summary{padding:36px 38px 30px}
+.ledger-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.ledger-top>span:first-child{font-family:var(--mono);font-size:8px;letter-spacing:.12em;color:var(--muted)}
+.demo-chip{
+  display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:4px;
+  background:rgba(255,92,26,.1);color:var(--orange-deep);font-family:var(--mono);font-size:7px;letter-spacing:.08em;
+}
+.demo-chip::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--orange)}
+.ledger-mode{font-family:var(--mono);font-size:7px;letter-spacing:.08em;color:var(--muted)}
+.ledger-mode.is-offline{color:var(--orange-deep)}
+.ledger-amount{display:flex;align-items:baseline;gap:8px;margin-top:19px}
+.ledger-amount strong{font-size:clamp(50px,5.7vw,72px);line-height:.9;letter-spacing:-.075em;font-weight:780}
+.ledger-amount>span{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:-.02em}
+.ledger-goal{font-size:10px;color:var(--muted);margin-top:13px}
+.progress-wrap{position:relative;margin:29px 0 8px;padding-top:22px}
+.progress-bubble{
+  position:absolute;top:0;left:clamp(22px,var(--progress),calc(100% - 22px));transform:translateX(-50%);
+  min-width:42px;padding:4px 7px;border-radius:5px;background:var(--ink);color:var(--paper);
+  font-family:var(--mono);font-size:7.5px;text-align:center;transition:left .9s cubic-bezier(.2,.7,.2,1);
+}
+.progress-bubble::after{content:"";position:absolute;left:50%;bottom:-4px;width:7px;height:7px;background:var(--ink);transform:translateX(-50%) rotate(45deg)}
+.progress-track{height:16px;border:1.2px solid var(--ink);border-radius:99px;background:#e9e1d4;overflow:hidden;padding:2px}
+.progress-fill{
+  display:block;height:100%;width:var(--progress);min-width:0;border-radius:99px;
+  background:repeating-linear-gradient(45deg,var(--orange) 0 8px,#ff8a50 8px 16px);
+  transition:width .9s cubic-bezier(.2,.7,.2,1);
+}
+.progress-scale{display:flex;justify-content:space-between;margin-top:7px;font-family:var(--mono);font-size:7px;color:var(--muted)}
+.ledger-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:23px;padding-top:20px;border-top:1px solid var(--line)}
+.ledger-stats>div>span{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.06em;color:var(--muted);margin-bottom:5px}
+.ledger-stats strong{display:block;font-size:15px;letter-spacing:-.03em;font-weight:650;white-space:nowrap}
+.ledger-note{margin-top:15px;font-family:var(--mono);font-size:7px;line-height:1.6;color:#a49a8b}
+.reset-link{padding:0;border:0;background:none;color:var(--orange-deep);font-family:inherit;font-size:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.ledger-summary .btn{margin-top:23px;min-height:47px;font-size:11px}
+.ledger-list-wrap{padding:34px 32px 25px;border-left:1.5px solid var(--ink);background:#f0eadf;display:flex;flex-direction:column;min-width:0}
+.ledger-head{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.ledger-head span:first-child{font-family:var(--mono);font-size:7px;letter-spacing:.12em;color:var(--muted)}
+.ledger-head h3{font-size:19px;letter-spacing:-.04em;margin-top:3px;font-weight:650}
+.ledger-head>span{font-family:var(--mono);font-size:9px;color:var(--muted);padding-top:2px}
+.ledger-list{max-height:361px;overflow-y:auto;overflow-x:hidden;padding-right:5px;scrollbar-width:thin;scrollbar-color:rgba(23,19,15,.25) transparent}
+.ledger-list::-webkit-scrollbar{width:4px}
+.ledger-list::-webkit-scrollbar-thumb{background:rgba(23,19,15,.22);border-radius:4px}
+.ledger-row{display:grid;grid-template-columns:37px minmax(0,1fr) auto;gap:11px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(23,19,15,.09);animation:row-in .45s ease both}
+.ledger-row:last-child{border-bottom:0}
+@keyframes row-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.ledger-avatar{
+  width:37px;height:37px;border-radius:50%;display:grid;place-items:center;background:var(--avatar,var(--butter));
+  border:1px solid rgba(23,19,15,.12);font-size:11px;font-weight:650;color:var(--ink);
+}
+.ledger-info{min-width:0}
+.ledger-name{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:650;letter-spacing:-.01em}
+.ledger-name .mini-tag{font-family:var(--mono);font-size:5.5px;font-weight:400;color:var(--muted);border:1px solid var(--line);padding:1px 3px;border-radius:2px}
+.ledger-info p{font-size:9.5px;line-height:1.5;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ledger-amt{text-align:right;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
+.ledger-amt small{display:block;margin-top:3px;font-size:6.5px;font-weight:400;color:var(--muted);letter-spacing:.02em}
+.ledger-empty{padding:45px 0;text-align:center;font-size:10px;color:var(--muted)}
+
+/* ---------- payment ---------- */
+.pay-section{position:relative;overflow:hidden;background:var(--ink);color:var(--paper);padding:108px 0 112px}
+.pay-section::before{
+  content:"";position:absolute;width:760px;height:760px;right:-190px;top:-250px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,92,26,.37),rgba(255,92,26,.08) 45%,transparent 69%);
+}
+.pay-section::after{
+  content:"CHECKOUT";position:absolute;left:-15px;bottom:-35px;font-size:clamp(100px,15vw,220px);
+  font-weight:800;letter-spacing:-.08em;line-height:.7;color:transparent;-webkit-text-stroke:1px rgba(245,241,232,.06);pointer-events:none;
+}
+.pay-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:76px;align-items:center}
+.pay-eyebrow{color:rgba(245,241,232,.44);display:flex;align-items:center;gap:10px}
+.pay-eyebrow::before{content:"";width:18px;height:1px;background:var(--orange)}
+.pay-copy h2{font-size:clamp(44px,5.1vw,68px);line-height:1.03;letter-spacing:-.06em;margin-top:26px;font-weight:750}
+.pay-copy h2 em{font-family:var(--script);font-weight:400;font-style:normal;color:var(--orange);font-size:1.03em;letter-spacing:-.02em;display:inline-block;transform:rotate(-3deg);transform-origin:left}
+.pay-copy>p{margin-top:25px;font-size:13px;line-height:1.9;color:rgba(245,241,232,.57);max-width:400px}
+.pay-points{list-style:none;margin:35px 0 0;padding:0;border-top:1px solid rgba(245,241,232,.13);max-width:430px}
+.pay-points li{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(245,241,232,.11);font-size:11px;color:rgba(245,241,232,.65)}
+.pay-points span{font-family:var(--mono);font-size:7px;color:var(--orange);letter-spacing:.06em}
+.demo-notice,.real-notice{
+  display:inline-flex;align-items:center;gap:7px;margin-top:27px;padding:7px 11px;
+  border:1px solid rgba(255,92,26,.27);border-radius:5px;color:var(--orange-soft);
+  font-family:var(--mono);font-size:7px;letter-spacing:.05em;
+}
+.demo-notice>span,.real-notice>span{width:5px;height:5px;border-radius:50%;background:var(--orange);animation:pulse 2.4s infinite}
+.real-notice{border-color:rgba(123,216,143,.28);color:#a9e4b4}
+.real-notice>span{background:#63c97a}
+.ticket{
+  position:relative;padding:30px 32px 23px;background:var(--card);color:var(--ink);border-radius:18px;
+  box-shadow:15px 16px 0 rgba(255,92,26,.2),0 30px 60px rgba(0,0,0,.22);transform:rotate(1.3deg);
+}
+.ticket::before,.ticket::after{
+  content:"";position:absolute;width:22px;height:22px;border-radius:50%;background:var(--ink);top:50%;
+}
+.ticket::before{left:-11px}.ticket::after{right:-11px}
+.ticket-notch{position:absolute;left:0;right:0;height:1px;background:transparent;border-top:1.3px dashed rgba(23,19,15,.27)}
+.ticket-notch.top{top:106px}.ticket-notch.bottom{bottom:61px}
+.ticket-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:7px;letter-spacing:.13em;color:var(--muted)}
+.ticket-title{font-size:19px;letter-spacing:-.045em;font-weight:700;margin-top:16px}
+.ticket-config{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:10px;color:var(--muted)}
+.ticket-config-dot{width:8px;height:8px;border-radius:50%;background:var(--phone-color);box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.ticket-rule{height:1px;margin:23px 0;background-image:linear-gradient(90deg,rgba(23,19,15,.23) 50%,transparent 0);background-size:7px 1px}
+.ticket-label{font-family:var(--mono);font-size:7px;letter-spacing:.12em;color:var(--muted)}
+.ticket-price{display:flex;align-items:baseline;gap:8px;margin-top:5px}
+.ticket-price strong{font-size:47px;letter-spacing:-.065em;line-height:1;font-weight:780}
+.ticket-price span{font-size:9px;color:var(--muted)}
+.ticket-presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.ticket-preset{
+  padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:transparent;cursor:pointer;
+  font-family:var(--mono);font-size:9px;transition:border-color .2s,background .2s,color .2s;
+}
+.ticket-preset:hover{border-color:var(--ink)}
+.ticket .btn{margin-top:5px;min-height:49px;font-size:12px;background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:none}
+.ticket .btn:hover{background:var(--orange-deep);border-color:var(--orange-deep)}
+.ticket-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:18px;font-family:var(--mono);font-size:7px;color:var(--muted);letter-spacing:.03em}
+.barcode{display:block;width:90px;height:22px;opacity:.55;background:repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 3px,var(--ink) 3px 5px,transparent 5px 7px,var(--ink) 7px 8px,transparent 8px 12px)}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--paper);border-top:1px solid var(--line);padding:75px 0 28px}
+.footer-top{display:flex;align-items:flex-end;justify-content:space-between;gap:36px;padding-bottom:58px}
+.footer-kicker{font-family:var(--mono);font-size:8px;letter-spacing:.14em;color:var(--muted)}
+.footer-top h2{font-size:clamp(36px,4.4vw,58px);line-height:1.07;letter-spacing:-.055em;margin-top:15px;font-weight:750}
+.footer-top .btn{flex-shrink:0}
+.footer-bottom{display:grid;grid-template-columns:1.25fr 1fr auto;gap:46px;align-items:start;border-top:1px solid var(--line);padding-top:23px}
+.footer-brand{display:flex;align-items:center;gap:10px}
+.footer-brand .brand-mark{width:27px;height:27px;font-size:12px;border-radius:8px}
+.footer-brand span{font-size:11px;font-weight:650}
+.footer-copy p{font-size:10px;line-height:1.8;color:var(--muted)}
+.footer-nav{display:flex;gap:17px;font-family:var(--mono);font-size:9px;letter-spacing:.04em;color:var(--muted);padding-top:2px}
+.footer-nav a{text-decoration:none}
+.footer-nav a:hover{color:var(--orange)}
+.footer-demo{grid-column:1/-1;font-family:var(--mono);font-size:7.5px;letter-spacing:.03em;color:#a49a8b;margin-top:8px}
+
+/* ---------- checkout modal ---------- */
+.modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:24px;visibility:hidden;opacity:0;transition:opacity .25s ease,visibility .25s}
+.modal.is-open{visibility:visible;opacity:1}
+.modal-backdrop{position:absolute;inset:0;background:rgba(18,14,10,.63);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.checkout{
+  position:relative;width:min(590px,100%);max-height:min(91vh,860px);overflow-y:auto;background:var(--paper);
+  border:1.5px solid var(--ink);border-radius:27px;box-shadow:0 30px 100px rgba(0,0,0,.38);
+  transform:translateY(22px) scale(.985);transition:transform .32s cubic-bezier(.2,.7,.2,1);
+  scrollbar-width:thin;scrollbar-color:rgba(23,19,15,.22) transparent;
+}
+.checkout::-webkit-scrollbar{width:5px}
+.checkout::-webkit-scrollbar-thumb{background:rgba(23,19,15,.2);border-radius:5px}
+.modal.is-open .checkout{transform:none}
+.checkout:focus{outline:none}
+.checkout-head{position:relative;padding:25px 27px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.checkout-kicker{font-family:var(--mono);font-size:7px;letter-spacing:.13em;color:var(--muted)}
+.checkout-head h2{font-size:27px;line-height:1.1;letter-spacing:-.05em;margin-top:6px;font-weight:750}
+.close-btn{
+  width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:transparent;
+  display:grid;place-items:center;font-size:19px;font-weight:300;line-height:1;cursor:pointer;flex-shrink:0;
+  transition:background .2s,border-color .2s,transform .2s;
+}
+.close-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--paper);transform:rotate(90deg)}
+.steps{display:flex;gap:22px;padding:20px 27px 0}
+.step-indicator{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:7px;letter-spacing:.05em;color:#aaa092;transition:color .2s}
+.step-indicator span{display:grid;place-items:center;width:17px;height:17px;border:1px solid #c8bfb1;border-radius:50%;font-size:6px}
+.step-indicator.is-active{color:var(--ink)}
+.step-indicator.is-active span{background:var(--orange);border-color:var(--orange);color:#fff}
+.step-indicator.is-done{color:var(--ink-soft)}
+.step-indicator.is-done span{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.checkout-body{padding:20px 27px 29px}
+.order-mini{display:flex;align-items:center;gap:11px;padding:12px 13px;border:1px solid var(--line);border-radius:11px;background:rgba(255,253,248,.6)}
+.order-mini-dot{width:30px;height:30px;border-radius:8px;background:linear-gradient(145deg,var(--phone-highlight),var(--phone-color) 55%,var(--phone-edge));box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);flex-shrink:0}
+.order-mini-info{min-width:0}
+.order-mini-info b{display:block;font-size:11px;font-weight:650;letter-spacing:-.01em}
+.order-mini-info span{display:block;margin-top:2px;font-size:9px;color:var(--muted)}
+.order-mini-price{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:600}
+.field-label{display:flex;align-items:baseline;justify-content:space-between;margin:23px 0 10px}
+.field-label span{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--muted)}
+.field-label small{font-size:7px;color:#a49a8b}
+.preset-row{display:flex;flex-wrap:wrap;gap:6px}
+.amount-preset{
+  padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:transparent;cursor:pointer;
+  font-family:var(--mono);font-size:9px;transition:background .2s,border-color .2s,color .2s;
+}
+.amount-preset:hover{border-color:var(--ink)}
+.amount-preset.is-active{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.amount-field{
+  display:flex;align-items:center;gap:7px;margin-top:10px;padding:11px 13px;border:1.3px solid var(--ink);border-radius:10px;
+  background:var(--card);
+}
+.amount-field>span{font-family:var(--mono);font-size:14px;color:var(--muted)}
+.amount-field input{width:100%;border:0;outline:0;background:transparent;font-family:var(--mono);font-size:15px;color:var(--ink)}
+.amount-field input::placeholder{color:#b8ae9f}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:17px}
+.text-field label{display:block;font-family:var(--mono);font-size:7.5px;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.text-field input,.text-field textarea{
+  width:100%;border:1px solid var(--line);border-radius:9px;background:rgba(255,253,248,.62);
+  padding:10px 11px;font-family:var(--sans);font-size:12px;color:var(--ink);outline:0;
+  transition:border-color .2s,background .2s;
+}
+.text-field input:focus,.text-field textarea:focus{border-color:var(--ink);background:var(--card)}
+.text-field textarea{resize:vertical;min-height:58px;line-height:1.5}
+.text-field.full{grid-column:1/-1}
+.anon-toggle{display:flex;align-items:center;gap:7px;margin-top:13px;font-size:9.5px;color:var(--muted);cursor:pointer;user-select:none;width:fit-content}
+.anon-toggle input{position:absolute;opacity:0;pointer-events:none}
+.checkbox-ui{width:14px;height:14px;border:1px solid #b8ad9d;border-radius:3px;display:grid;place-items:center;transition:background .2s,border-color .2s}
+.anon-toggle input:checked + .checkbox-ui{background:var(--orange);border-color:var(--orange)}
+.anon-toggle input:checked + .checkbox-ui::after{content:"✓";color:#fff;font-size:9px;line-height:1}
+.anon-toggle input:focus-visible + .checkbox-ui{outline:2px solid var(--orange);outline-offset:2px}
+.checkout-body .btn.full{margin-top:19px;min-height:50px;font-size:12px}
+.secure-note{margin-top:11px;text-align:center;font-family:var(--mono);font-size:6.5px;color:#a89e90;line-height:1.6}
+.pay-summary{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:16px 17px;border-radius:12px;background:var(--butter);border:1px solid rgba(23,19,15,.16);margin-top:17px}
+.pay-summary span{display:block;font-family:var(--mono);font-size:7px;letter-spacing:.1em;opacity:.65}
+.pay-summary strong{display:block;margin-top:3px;font-size:31px;line-height:1;letter-spacing:-.06em;font-weight:750}
+.pay-summary p{font-size:8px;line-height:1.6;text-align:right;color:rgba(23,19,15,.6);max-width:190px}
+.payment-methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:11px}
+.pay-method{
+  display:flex;align-items:center;gap:8px;padding:11px 10px;border:1.2px solid var(--line);border-radius:10px;
+  background:transparent;cursor:pointer;text-align:left;transition:border-color .2s,background .2s;
+}
+.pay-method:hover{border-color:var(--ink)}
+.pay-method.is-active{border-color:var(--ink);background:rgba(23,19,15,.045)}
+.method-icon{width:25px;height:25px;border-radius:7px;display:grid;place-items:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+.method-icon.wechat{background:#20a459;font-size:10px}
+.method-icon.alipay{background:#1677ff;font-size:11px}
+.method-icon.applepay{background:var(--ink);font-size:7px;letter-spacing:-.03em}
+.pay-method b{display:block;font-size:8.5px;font-weight:600}
+.pay-method small{display:block;font-family:var(--mono);font-size:5.5px;color:var(--muted);margin-top:2px}
+.payment-detail{margin-top:15px}
+.demo-terminal{
+  border:1px dashed #b8ad9d;border-radius:11px;background:rgba(255,253,248,.5);padding:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.terminal-light{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite;flex-shrink:0}
+.demo-terminal b{font-family:var(--mono);font-size:7px;letter-spacing:.08em;color:var(--ink-soft)}
+.demo-terminal span{margin-left:auto;font-family:var(--mono);font-size:6px;color:var(--muted)}
+.demo-terminal p{width:100%;font-size:9px;line-height:1.6;color:var(--muted);margin-top:3px}
+.pay-qr-box{text-align:center;padding:15px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.pay-qr-box img{width:min(268px,100%);height:auto;object-fit:contain;margin:10px auto 10px;border-radius:11px;border:1px solid rgba(23,19,15,.08)}
+.pay-qr-box p{font-size:8px;line-height:1.6;color:var(--muted)}
+.pay-link-box{border:1px solid var(--line);border-radius:11px;padding:16px;background:var(--card);text-align:center}
+.pay-link-box p{font-size:9px;line-height:1.6;color:var(--muted);margin-bottom:11px}
+.back-link{display:block;margin:13px auto 0;background:none;border:0;padding:5px;font-family:var(--mono);font-size:7px;color:var(--muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.back-link:hover{color:var(--ink)}
+.success{text-align:center;padding:8px 0 2px}
+.success-mark{
+  width:64px;height:64px;margin:2px auto 16px;border-radius:50%;display:grid;place-items:center;
+  background:var(--orange);color:#fff;font-size:29px;box-shadow:0 10px 26px rgba(255,92,26,.25);
+  animation:pop .55s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes pop{0%{opacity:0;transform:scale(.65) rotate(-10deg)}70%{transform:scale(1.05) rotate(2deg)}100%{opacity:1;transform:none}}
+.success-kicker{font-family:var(--mono);font-size:7px;letter-spacing:.12em;color:var(--muted)}
+.success h3{font-size:30px;line-height:1.1;letter-spacing:-.055em;margin-top:7px;font-weight:750}
+.success>p{max-width:330px;margin:10px auto 0;font-size:10px;line-height:1.7;color:var(--muted)}
+.receipt{margin-top:21px;text-align:left;border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--card)}
+.receipt-row{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:7px 0;font-size:10px;border-bottom:1px dashed rgba(23,19,15,.1)}
+.receipt-row:last-child{border-bottom:0}
+.receipt-row span:first-child{color:var(--muted);font-family:var(--mono);font-size:7px;letter-spacing:.04em}
+.receipt-row span:last-child{text-align:right;font-weight:550;max-width:65%;line-height:1.5}
+.receipt-row.total{padding-top:11px}
+.receipt-row.total span:last-child{font-size:18px;letter-spacing:-.04em;font-weight:750}
+.success-actions{display:flex;gap:9px;justify-content:center;margin-top:18px}
+.success-actions .btn{min-height:44px;font-size:9.5px;padding:0 16px}
+.success-actions .text-btn{border-color:transparent;background:transparent;box-shadow:none}
+.success-actions .text-btn:hover{background:rgba(23,19,15,.05)}
+.spinner{width:13px;height:13px;border:1.5px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- toast & confetti ---------- */
+#confetti{position:fixed;inset:0;z-index:160;width:100%;height:100%;pointer-events:none}
+.toast{
+  position:fixed;left:50%;bottom:28px;z-index:200;transform:translate(-50%,20px);opacity:0;
+  background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:999px;
+  font-size:10px;letter-spacing:.01em;box-shadow:0 12px 36px rgba(0,0,0,.25);
+  transition:opacity .25s,transform .25s;pointer-events:none;max-width:calc(100% - 34px);text-align:center;
+}
+.toast.is-visible{opacity:1;transform:translate(-50%,0)}
+.heart-bit{position:fixed;z-index:150;pointer-events:none;color:var(--orange);font-size:15px;animation:heart-up 1.4s ease-out forwards}
+@keyframes heart-up{from{opacity:1;transform:translateY(0) scale(.7) rotate(0)}to{opacity:0;transform:translateY(-90px) scale(1.2) rotate(25deg)}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1120px){
+  .hero h1{font-size:clamp(54px,7vw,82px)}
+  .duo-stage{transform:translateX(-50%) scale(.94);transform-origin:top center}
+  .hero-visual{height:620px}
+  .why-grid{gap:48px}
+  .config-panel{padding:33px 32px 29px}
+  .pay-grid{gap:48px}
+  .ledger-summary{padding:32px 30px 27px}
+  .ledger-list-wrap{padding:30px 26px 23px}
+}
+@media (max-width:960px){
+  .nav{display:none}
+  .hero{padding-top:46px}
+  .hero-inner{grid-template-columns:1fr;gap:13px}
+  .hero-copy{max-width:640px}
+  .hero h1{font-size:clamp(58px,10vw,88px)}
+  .hero-visual{height:590px;margin-top:-11px}
+  .duo-stage{transform:translateX(-50%) scale(.9);transform-origin:top center}
+  .hero::after{bottom:auto;top:350px;opacity:.65}
+  .why-grid{grid-template-columns:1fr;gap:38px}
+  .why-title p{max-width:520px}
+  .quote-card{grid-template-columns:.45fr 1.55fr;gap:26px;padding:32px}
+  .config-head{grid-template-columns:1fr;gap:20px}
+  .config-head p{justify-self:start;max-width:520px}
+  .config-shell{grid-template-columns:1fr}
+  .config-preview{min-height:400px;border-right:0;border-bottom:1.5px solid var(--ink)}
+  .preview-phone{top:52%;width:178px;height:365px}
+  .preview-camera{width:92px;height:92px}
+  .preview-lens{width:33px;height:33px}
+  .preview-grid-text{font-size:166px;bottom:-24px}
+  .config-panel{padding:31px 34px 29px}
+  .ledger-shell{grid-template-columns:1fr}
+  .ledger-list-wrap{border-left:0;border-top:1.5px solid var(--ink)}
+  .ledger-list{max-height:300px}
+  .pay-grid{grid-template-columns:1fr;gap:43px}
+  .pay-copy{max-width:620px}
+  .ticket{max-width:530px;transform:rotate(1deg)}
+  .footer-bottom{grid-template-columns:1.2fr .8fr;gap:24px}
+  .footer-nav{grid-column:2;justify-self:end;grid-row:1}
+  .footer-demo{grid-column:1/-1}
+}
+@media (max-width:680px){
+  .wrap{width:calc(100% - 32px)}
+  .header-inner{height:64px;gap:12px}
+  .brand-mark{width:31px;height:31px;border-radius:9px;font-size:14px}
+  .brand-name{font-size:10.5px}
+  .brand-name small{font-size:7px}
+  .header-cta{min-height:36px;padding:0 13px;font-size:9px;gap:6px}
+  .header-cta .arrow{font-size:10px}
+  .hero{padding:37px 0 59px}
+  .hero h1{font-size:clamp(48px,14vw,68px);letter-spacing:-.065em;margin-top:18px}
+  .hero h1 .line-two{white-space:normal}
+  .duo{font-size:.55em}
+  .lede{font-size:13px;line-height:1.85;margin-top:20px;max-width:350px}
+  .hero-actions{gap:16px;margin-top:24px}
+  .hero-actions .btn{min-height:48px;padding:0 20px;font-size:11px}
+  .text-link{font-size:10px}
+  .proof{margin-top:27px;gap:11px}
+  .proof p{font-size:9px}
+  .hero-note{font-size:7px;margin-top:17px}
+  .hero-visual{height:450px;margin-top:-11px}
+  .duo-stage{transform:translateX(-50%) scale(.69);transform-origin:top center}
+  .hero::after{font-size:110px;top:370px;left:-10px}
+  .section{padding:70px 0}
+  .section-label{margin-bottom:31px;gap:9px;padding-top:11px}
+  .display{font-size:clamp(37px,10vw,48px)}
+  .why{padding-top:70px}
+  .reason{grid-template-columns:35px 1fr;gap:10px;padding:22px 2px}
+  .reason-tag{display:none}
+  .reason h3{font-size:20px}
+  .reason p{font-size:11.5px}
+  .quote-card{grid-template-columns:1fr;gap:4px;padding:25px 24px;box-shadow:5px 6px 0 var(--ink);margin-top:45px}
+  .quote-mark{font-size:64px}
+  .quote-left span{margin-top:10px}
+  .quote-card blockquote{font-size:20px;line-height:1.55}
+  .quote-seal{width:48px;height:48px;right:18px;top:16px;font-size:6px}
+  .config-head{margin-bottom:29px}
+  .config-head p{font-size:11px}
+  .config-shell{border-radius:20px;box-shadow:6px 7px 0 var(--ink)}
+  .config-preview{min-height:335px}
+  .preview-phone{width:145px;height:298px;border-radius:35px}
+  .preview-camera{width:78px;height:78px;border-radius:22px;left:11px;top:11px}
+  .preview-lens{width:29px;height:29px}
+  .preview-lens.l1{left:8px;top:8px}.preview-lens.l2{right:8px;top:8px}.preview-lens.l3{left:8px;bottom:8px}
+  .preview-flash{right:15px;bottom:19px;width:8px;height:8px}
+  .preview-tag{right:15px;bottom:16px;padding:9px 11px}
+  .preview-tag b{font-size:14px}
+  .preview-grid-text{font-size:132px;left:13px;bottom:-18px}
+  .config-panel{padding:25px 20px 22px}
+  .model-tab{padding:9px 10px}
+  .model-tab strong{font-size:10px}
+  .storage-list{grid-template-columns:repeat(2,1fr)}
+  .config-total{flex-direction:column;align-items:stretch;gap:15px;padding-top:21px}
+  .config-total strong{font-size:32px}
+  .config-total .btn{width:100%}
+  .progress-head{display:block;margin-bottom:29px}
+  .progress-head p{margin-top:15px;padding:0;max-width:340px}
+  .ledger-shell{border-radius:20px;box-shadow:6px 7px 0 var(--ink)}
+  .ledger-summary{padding:24px 20px 22px}
+  .ledger-amount strong{font-size:53px}
+  .ledger-stats{gap:7px}
+  .ledger-stats strong{font-size:13px}
+  .ledger-list-wrap{padding:24px 20px 18px}
+  .pay-section{padding:78px 0 83px}
+  .pay-copy h2{font-size:clamp(43px,12.5vw,57px);margin-top:20px}
+  .pay-copy>p{font-size:11.5px}
+  .pay-points li{font-size:9.5px}
+  .ticket{padding:24px 20px 20px;box-shadow:8px 9px 0 rgba(255,92,26,.2),0 25px 50px rgba(0,0,0,.22)}
+  .ticket-notch.top{top:89px}
+  .ticket-notch.bottom{bottom:59px}
+  .ticket-title{font-size:17px;margin-top:13px}
+  .ticket-price strong{font-size:41px}
+  .ticket-preset{padding:7px 9px;font-size:7.5px}
+  .site-footer{padding:56px 0 23px}
+  .footer-top{display:block;padding-bottom:39px}
+  .footer-top h2{font-size:clamp(34px,9.6vw,44px)}
+  .footer-top .btn{margin-top:24px;min-height:46px;font-size:10px}
+  .footer-bottom{grid-template-columns:1fr;gap:19px}
+  .footer-nav{grid-column:auto;grid-row:auto;justify-self:start}
+  .footer-copy p{font-size:8px}
+  .checkout{max-height:94vh;border-radius:22px 22px 0 0;border-bottom:0}
+  .modal{padding:0;align-items:flex-end}
+  .checkout-head{padding:20px 19px 0}
+  .checkout-head h2{font-size:23px}
+  .steps{padding:16px 19px 0;gap:15px}
+  .checkout-body{padding:16px 19px 25px}
+  .field-grid{grid-template-columns:1fr}
+  .text-field.full{grid-column:auto}
+  .payment-methods{grid-template-columns:1fr;gap:5px}
+  .pay-method{padding:10px 10px;gap:8px;flex-direction:row;align-items:center}
+  .method-icon{width:22px;height:22px}
+  .pay-method b{font-size:7.5px}
+  .pay-method small{font-size:5px}
+  .pay-summary{padding:13px;align-items:flex-start;flex-direction:column;gap:7px}
+  .pay-summary p{text-align:left;max-width:none}
+  .pay-qr-box{padding:12px}
+  .pay-qr-box img{width:220px;margin:8px auto}
+  .success h3{font-size:26px}
+}
+@media (max-width:380px){
+  .duo-stage{transform:translateX(-50%) scale(.62)}
+  .hero-visual{height:410px}
+  .header-cta{padding:0 11px;font-size:8px}
+  .brand-name small{display:none}
+  .model-tabs{grid-template-columns:1fr}
+  .checkout-head h2{font-size:21px}
+  .steps{gap:9px}
+  .step-indicator{font-size:6px;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .reveal{opacity:1;transform:none}
+}
+
+
+/* ---------- official iPhone Duo product image ---------- */
+.duo-lineup{
+  position:absolute;z-index:2;left:50%;top:47%;width:660px;height:auto;
+  transform:translate(-50%,-50%);
+  filter:saturate(1.03) contrast(1.02) drop-shadow(0 34px 38px rgba(31,17,9,.16));
+  pointer-events:none;user-select:none;
+}
+.duo-stage .stage-halo{right:36px;top:126px;width:420px;height:420px;opacity:.9}
+.duo-stage .orbit-one{width:510px;height:430px;right:0;top:120px;transform:rotate(-8deg)}
+.duo-stage .orbit-two{width:590px;height:330px;right:-36px;top:188px;transform:rotate(11deg)}
+.duo-stage .sticker-target{right:-14px;top:46px}
+.duo-stage .sticker-percent{right:4px;bottom:52px}
+.duo-stage .stamp{left:4px;top:15px}
+.duo-stage .hand-note{left:52px;bottom:10px}
+.duo-stage .scribble{left:240px;bottom:44px}
+@media (max-width:960px){
+  .duo-lineup{width:650px;top:48%}
+}
+@media (max-width:680px){
+  .duo-lineup{width:570px;top:47%}
+  .duo-stage .sticker-target{right:-7px;top:26px}
+  .duo-stage .sticker-percent{right:2px;bottom:53px}
+  .duo-stage .stamp{left:0;top:5px}
+  .duo-stage .hand-note{left:26px;bottom:14px}
+  .duo-stage .scribble{left:190px;bottom:48px}
+}
+/* Duo preview responsive refinements */
+@media (max-width:960px){
+  .preview-duo-open{transform:translate(-50%,-50%) rotate(7deg) scale(.9)}
+  .preview-duo-body{transform:translate(-50%,-50%) rotate(-13deg) scale(.86)}
+}
+@media (max-width:680px){
+  .duo-spec{padding:11px 12px;gap:9px;margin-bottom:18px}
+  .duo-spec-star{width:28px;height:28px;border-radius:8px;font-size:13px}
+  .duo-spec-text strong{font-size:14px}
+  .duo-spec-text small{font-size:7px}
+  .duo-spec-price{font-size:7px}
+  .preview-duo-open{transform:translate(-50%,-50%) rotate(7deg) scale(.68)}
+  .preview-duo-body{transform:translate(-50%,-50%) rotate(-13deg) scale(.68)}
+}
+.pay-qr-head{display:flex;align-items:center;gap:9px;text-align:left;margin-bottom:3px}
+.pay-qr-head b{display:block;font-size:10px;line-height:1.3}
+.pay-qr-head small{display:block;font-family:var(--mono);font-size:6.5px;color:var(--muted);margin-top:2px}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="回到顶部">
+      <span class="brand-mark">W</span>
+      <span class="brand-name">送WAGZAO一部iPhone Duo<small>FRIENDS FUND · 2026</small></span>
+    </a>
+    <nav class="nav" aria-label="页面导航">
+      <a href="#why">为什么</a>
+      <a href="#config">挑配置</a>
+      <a href="#progress">凑钱进度</a>
+      <a href="#pay">去付款</a>
+    </nav>
+    <button class="btn header-cta" type="button" data-open-checkout>凑一份 <span class="arrow">↗</span></button>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <div class="kicker"><span class="kicker-dot"></span> A VERY SMALL FUNDRAISER <span class="kicker-sep">/</span> 2026</div>
+        <h1>
+          <span class="line">送 <span class="wagzao">WAGZAO</span></span>
+          <span class="line line-two">一部 <span class="iphone">iPhone</span><button class="duo" id="duoButton" type="button" aria-label="Duo，按三下有小惊喜">Duo<span>.</span></button></span>
+        </h1>
+        <p class="lede">
+          不是他买不起，是我们想送。<br>
+          一台 <strong data-model-name>iPhone Duo</strong>，一群看热闹不嫌事大的朋友。
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-dark" type="button" data-open-checkout>凑一份心意 <span class="arrow">↗</span></button>
+          <a class="text-link" href="#progress">先看看进度 <span>↓</span></a>
+        </div>
+        <div class="proof">
+          <div class="proof-avatars" id="proofAvatars" aria-hidden="true"><span class="proof-avatar plus">+</span></div>
+          <p id="proofText"><strong>第一笔心意</strong>，等你来写<br><span data-hero-goal>还差 ¥15,999</span>，一起把 Duo 送到他手里。</p>
+        </div>
+        <div class="hero-note"><span>✳</span> ¥52 不嫌少，¥5,200 不嫌多。</div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="duo-stage lineup-stage">
+          <div class="stage-halo" aria-hidden="true"></div>
+          <div class="orbit orbit-one" aria-hidden="true"></div>
+          <div class="orbit orbit-two" aria-hidden="true"></div>
+
+          <img class="duo-lineup" src="assets/iphone-duo-lineup.webp" alt="iPhone Duo 官方演示图：折叠与展开形态" width="1400" height="760">
+
+          <div class="sticker sticker-target">
+            <span class="sticker-tape" aria-hidden="true"></span>
+            <small>TARGET / 目标机型</small>
+            <b data-model-name>iPhone Duo</b>
+            <span data-config-name>256GB · 夜空色</span>
+          </div>
+          <div class="sticker sticker-percent">
+            <small data-percent-kicker>START HERE</small>
+            <strong data-percent>0%</strong>
+            <span data-percent-caption>刚刚开始</span>
+          </div>
+          <div class="stamp" aria-hidden="true"><b>✦</b>FRIENDS ONLY<br>友情赞助<br>NO REFUNDS</div>
+          <div class="hand-note" aria-hidden="true">还差你这一笔 <span>↗</span></div>
+          <svg class="scribble" viewBox="0 0 70 58" aria-hidden="true">
+            <path d="M5 5c21 4 38 14 44 34"></path>
+            <path d="M41 31l9 9 10-13"></path>
+          </svg>
+          <span class="hero-spark spark-one" aria-hidden="true">✳</span>
+          <span class="hero-spark spark-two" aria-hidden="true">✦</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <div class="marquee-item"><span class="star">✦</span> 一台 iPhone Duo <span class="star">✦</span> 一群朋友 <span class="star">✦</span> <em>一点偏心</em> <span class="star">✦</span> 不接受拒绝 <span class="star">✦</span> 微信扫码就行 <span class="star">✦</span> <em>友谊无价，但手机有价</em> <span class="star">✦</span></div>
+        <div class="marquee-item"><span class="star">✦</span> 一台 iPhone Duo <span class="star">✦</span> 一群朋友 <span class="star">✦</span> <em>一点偏心</em> <span class="star">✦</span> 不接受拒绝 <span class="star">✦</span> 微信扫码就行 <span class="star">✦</span> <em>友谊无价，但手机有价</em> <span class="star">✦</span></div>
+      </div>
+      <div class="marquee-group">
+        <div class="marquee-item"><span class="star">✦</span> 一台 iPhone Duo <span class="star">✦</span> 一群朋友 <span class="star">✦</span> <em>一点偏心</em> <span class="star">✦</span> 不接受拒绝 <span class="star">✦</span> 微信扫码就行 <span class="star">✦</span> <em>友谊无价，但手机有价</em> <span class="star">✦</span></div>
+        <div class="marquee-item"><span class="star">✦</span> 一台 iPhone Duo <span class="star">✦</span> 一群朋友 <span class="star">✦</span> <em>一点偏心</em> <span class="star">✦</span> 不接受拒绝 <span class="star">✦</span> 微信扫码就行 <span class="star">✦</span> <em>友谊无价，但手机有价</em> <span class="star">✦</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section why" id="why">
+    <div class="wrap">
+      <div class="section-label reveal"><span class="index">(01)</span><span>WHY iPhone DUO</span><span class="spacer"></span><span class="cn">为什么是 Duo</span></div>
+      <div class="why-grid">
+        <div class="why-title reveal">
+          <h2 class="display">理由不用太多，<br><em>一条</em>就够。</h2>
+          <p>本来只想在群里开个玩笑。后来大家认真算了一下价格，发现玩笑已经来不及撤回了。</p>
+        </div>
+        <div class="reason-list reveal d1">
+          <article class="reason">
+            <span class="reason-num">01</span>
+            <div><h3>他值得</h3><p>一个把“随便”说成“都行”、把好东西先让给别人的人，值得收到一点确定的好东西。</p></div>
+            <span class="reason-tag">真心话</span>
+          </article>
+          <article class="reason">
+            <span class="reason-num">02</span>
+            <div><h3>我们乐意</h3><p>这不是众筹，是朋友们排队表达偏心。你可以理解为一场有预谋的集体宠溺。</p></div>
+            <span class="reason-tag">不用商量</span>
+          </article>
+          <article class="reason">
+            <span class="reason-num">03</span>
+            <div><h3>因为它会折叠</h3><p>合上是一本护照，打开是一块 7.6 英寸的偏心。我们不想讲道理，只想看他第一次展开它。</p></div>
+            <span class="reason-tag">没有道理</span>
+          </article>
+        </div>
+      </div>
+      <div class="quote-card reveal">
+        <div class="quote-left">
+          <div class="quote-mark">“</div>
+          <span>GROUP NOTE / 群公告</span>
+        </div>
+        <div>
+          <blockquote>他总说手机还能再战三年。我们一致认为，它可能撑不过这周。</blockquote>
+          <cite>—— WAGZAO 的朋友们，第 3 次群聊之后</cite>
+        </div>
+        <div class="quote-seal" aria-hidden="true">已阅<br>同意<br>✦</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section config-section" id="config">
+    <div class="wrap">
+      <div class="section-label reveal"><span class="index">(02)</span><span>THE ONLY PICK</span><span class="spacer"></span><span class="cn">就它了</span></div>
+      <div class="config-head">
+        <h2 class="display reveal">折叠一下，<br>把偏心<em>展开</em>。</h2>
+        <p class="reveal d1">Apple 首款折叠屏 iPhone Duo，国行 15,999 元起。7.6 英寸内屏、5.4 英寸外屏，合上像护照，打开像一场预谋已久的偏爱。</p>
+      </div>
+      <div class="config-shell reveal">
+        <div class="config-preview">
+          <div class="preview-label">FOLDED + OPEN / 实时预览</div>
+          <div class="preview-grid-text" aria-hidden="true">DUO</div>
+          <div class="preview-duo" aria-hidden="true">
+            <div class="preview-duo-open"><span>7.6″ INNER DISPLAY</span><b>Duo</b><small>展开 / OPEN FOR LOVE</small></div>
+            <div class="preview-duo-body">
+              <div class="preview-duo-camera">
+                <span class="duo-lens duo-lens-a"></span>
+                <span class="duo-lens duo-lens-b"></span>
+                <span class="duo-flash"></span>
+              </div>
+              <div class="preview-duo-brand"><span>✦</span><small>WAGZAO EDITION</small></div>
+              <span class="preview-duo-seam"></span>
+              <span class="preview-duo-side"></span>
+            </div>
+          </div>
+          <div class="preview-tag"><span>国行参考价 / 256GB</span><b data-preview-price>¥15,999</b></div>
+        </div>
+        <div class="config-panel">
+          <div class="duo-spec">
+            <span class="duo-spec-star">✦</span>
+            <div class="duo-spec-text">
+              <span>APPLE 首款折叠屏</span>
+              <strong>iPhone Duo</strong>
+              <small>7.6″ 内屏 · 5.4″ 外屏 · A20 Pro · 支持 Apple Pencil</small>
+            </div>
+            <span class="duo-spec-price">¥15,999 起</span>
+          </div>
+          <div class="option-group">
+            <div class="option-label"><span>01 / 颜色</span><b data-color-name>夜空色</b></div>
+            <div class="color-list" id="colorList" role="group" aria-label="选择颜色"></div>
+          </div>
+          <div class="option-group">
+            <div class="option-label"><span>02 / 容量</span><b id="storageCaption">256GB</b></div>
+            <div class="storage-list" id="storageList" role="group" aria-label="选择存储容量"></div>
+          </div>
+          <div class="duo-facts">
+            <div><span>7.6″</span><small>展开内屏</small></div>
+            <div><span>5.4″</span><small>合上外屏</small></div>
+            <div><span>31h</span><small>内屏视频</small></div>
+            <div><span>A20 Pro</span><small>2nm 芯片</small></div>
+          </div>
+          <div class="config-total">
+            <div><span>这台的总价</span><strong data-config-price>¥15,999</strong></div>
+            <button class="btn btn-orange" type="button" data-open-checkout>就送这台 <span class="arrow">↗</span></button>
+          </div>
+          <p class="config-fineprint">* 国行价格参考 Apple 中国官网（2026 年 10 月）：256GB ¥15,999 / 512GB ¥17,999 / 1TB ¥21,499 / 2TB ¥26,499。不含 Apple Pencil、AppleCare+ 与保护壳；多出来的部分归入 Apple Pencil 基金。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section progress-section" id="progress">
+    <div class="wrap">
+      <div class="section-label reveal"><span class="index">(03)</span><span>THE FRIENDS FUND</span><span class="spacer"></span><span class="cn">凑钱进度</span></div>
+      <div class="progress-head">
+        <h2 class="display reveal">钱要花得明白，<br>心意也是。</h2>
+        <p class="reveal d1">每一笔都记在这里。不设最低消费，也不接受“下次一定”。</p>
+      </div>
+      <div class="ledger-shell reveal">
+        <div class="ledger-summary">
+          <div class="ledger-top">
+            <span>FRIENDS FUND / 当前进度</span>
+            <span class="ledger-mode" id="ledgerMode">连接中…</span>
+          </div>
+          <div class="ledger-amount"><strong data-total>¥0</strong><span>/ <span data-target>¥15,999</span></span></div>
+          <p class="ledger-goal">目标：<span data-model-name>iPhone Duo</span> · <span data-config-name>256GB · 夜空色</span></p>
+          <div class="progress-wrap">
+            <div class="progress-bubble"><span data-percent>0%</span></div>
+            <div class="progress-track"><span class="progress-fill" data-progress-bar></span></div>
+            <div class="progress-scale"><span>¥0</span><span data-target>¥15,999</span></div>
+          </div>
+          <div class="ledger-stats">
+            <div><span>还差</span><strong data-remaining>¥15,999</strong></div>
+            <div><span>已有</span><strong><span data-supporters>0</span> 人</strong></div>
+            <div><span>完成度</span><strong data-percent>0%</strong></div>
+          </div>
+          <button class="btn btn-dark full" type="button" data-open-checkout>成为下一位 <span class="arrow">↗</span></button>
+          <p class="ledger-note">账本由服务端共享；扫码支付后提交登记，管理员核对微信账单后计入。<button class="reset-link" id="refreshLedgerBtn" type="button">刷新账本</button></p>
+        </div>
+        <div class="ledger-list-wrap">
+          <div class="ledger-head">
+            <div><span>THE LEDGER</span><h3>最近的心意</h3></div>
+            <span><span data-supporters>0</span> ENTRIES</span>
+          </div>
+          <div class="ledger-list" id="ledgerList" aria-live="polite"><div class="ledger-empty">还没有人出手。第一笔，等你来写。</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pay-section" id="pay">
+    <div class="wrap pay-grid">
+      <div class="pay-copy">
+        <div class="pay-eyebrow">04 / CHECKOUT</div>
+        <h2>最后一步，<br><em>把心意付掉。</em></h2>
+        <p>金额随意，方式随便。<br>反正最后都会变成 WAGZAO 手里那台会折叠的新 iPhone。</p>
+        <ul class="pay-points">
+          <li><span>01</span> 微信扫码 · 支付后登记</li>
+          <li><span>02</span> 多少都是心意，不设最低消费</li>
+          <li><span>03</span> 多出来的钱归入 Apple Pencil 基金</li>
+        </ul>
+        <div class="real-notice"><span></span> 微信收款码 · 人工登记</div>
+      </div>
+      <div class="ticket">
+        <div class="ticket-notch top" aria-hidden="true"></div>
+        <div class="ticket-notch bottom" aria-hidden="true"></div>
+        <div class="ticket-head"><span>GIFT ORDER</span><span>NO. 001</span></div>
+        <div class="ticket-title">WAGZAO 的 iPhone Duo 基金</div>
+        <div class="ticket-config"><span class="ticket-config-dot"></span><span data-model-name>iPhone Duo</span><span>·</span><span data-config-name>256GB · 夜空色</span></div>
+        <div class="ticket-rule"></div>
+        <div class="ticket-label">当前还差</div>
+        <div class="ticket-price"><strong data-ticket-gap>¥15,999</strong><span>就凑够了</span></div>
+        <div class="ticket-presets" id="ticketPresets">
+          <button class="ticket-preset" type="button" data-amount="52">¥52</button>
+          <button class="ticket-preset" type="button" data-amount="131.4">¥131.4</button>
+          <button class="ticket-preset" type="button" data-amount="520">¥520</button>
+          <button class="ticket-preset" type="button" data-amount="1314">¥1,314</button>
+        </div>
+        <div class="ticket-rule"></div>
+        <button class="btn btn-orange full" type="button" data-open-checkout>去付款 <span class="arrow">↗</span></button>
+        <div class="ticket-foot"><span>友情无价 · 拒绝内耗</span><span class="barcode" aria-hidden="true"></span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <span class="footer-kicker">ONE IPHONE, MANY FRIENDS</span>
+        <h2>偏心已就位，<br>就差你这一笔。</h2>
+      </div>
+      <button class="btn btn-dark" type="button" data-open-checkout>凑一份 <span class="arrow">↗</span></button>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-brand"><span class="brand-mark">W</span><span>送WAGZAO一部iPhone Duo</span></div>
+      <div class="footer-copy"><p>一个由朋友们临时起意、认真执行的小项目。<br>Made with 偏心 · 2026</p></div>
+      <nav class="footer-nav" aria-label="页脚导航"><a href="#why">WHY</a><a href="#config">PICK</a><a href="#progress">LEDGER</a><a href="#pay">PAY</a></nav>
+      <p class="footer-demo">支付通过微信收款码完成；登记经管理员核验后进入共享账本，到账以微信账单为准。</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================ CHECKOUT MODAL ============================ -->
+<div class="modal" id="checkoutModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close-modal></div>
+  <section class="checkout" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" tabindex="-1">
+    <div class="checkout-head">
+      <div><div class="checkout-kicker">CHECKOUT / 偏心结算</div><h2 id="checkoutTitle">把心意装进盒子。</h2></div>
+      <button class="close-btn" type="button" data-close-modal aria-label="关闭结算窗口">×</button>
+    </div>
+    <div class="steps" aria-hidden="true">
+      <div class="step-indicator is-active" data-step-indicator="1"><span>01</span>心意</div>
+      <div class="step-indicator" data-step-indicator="2"><span>02</span>付款</div>
+      <div class="step-indicator" data-step-indicator="3"><span>03</span>完成</div>
+    </div>
+    <div class="checkout-body">
+      <section class="checkout-step" data-step="1">
+        <div class="order-mini">
+          <span class="order-mini-dot"></span>
+          <div class="order-mini-info"><b>WAGZAO 的 iPhone Duo 基金</b><span data-checkout-config>iPhone Duo · 256GB · 夜空色</span></div>
+          <span class="order-mini-price" data-checkout-target>¥15,999</span>
+        </div>
+        <div class="field-label"><span>01 / 你的心意</span><small>人民币 · 不设最低消费</small></div>
+        <div class="preset-row" id="checkoutPresets"></div>
+        <label class="amount-field" for="amountInput"><span>¥</span><input id="amountInput" type="number" inputmode="decimal" min="1" step="0.01" placeholder="输入任意金额" autocomplete="off"></label>
+        <div class="field-grid">
+          <div class="text-field"><label for="supporterName">怎么称呼你</label><input id="supporterName" type="text" maxlength="20" placeholder="一位朋友"></div>
+          <div class="text-field"><label for="supporterContact">微信昵称（方便核对）</label><input id="supporterContact" type="text" maxlength="40" placeholder="和转账昵称一致"></div>
+          <div class="text-field full"><label for="supporterMessage">留句话给他</label><input id="supporterMessage" type="text" maxlength="60" placeholder="比如：记得请奶茶"></div>
+          <label class="anon-toggle"><input id="anonToggle" type="checkbox"><span class="checkbox-ui" aria-hidden="true"></span>匿名公开，不显示我的名字</label>
+        </div>
+        <button class="btn btn-orange full" id="toPaymentBtn" type="button">继续付款 <span class="arrow">↗</span></button>
+        <p class="secure-note">下一步将显示微信收款码，请核对收款人昵称。</p>
+      </section>
+
+      <section class="checkout-step" data-step="2" hidden>
+        <div class="pay-summary">
+          <div><span>本次心意</span><strong id="payAmountDisplay">¥520</strong></div>
+          <p id="payOrderSummary">用于 WAGZAO 的 iPhone Duo 基金<br>多出来的算 Apple Pencil 基金</p>
+        </div>
+        <div class="field-label"><span>02 / 选择支付方式</span><small>ALL WAYS WELCOME</small></div>
+        <div class="payment-methods" id="paymentMethods"></div>
+        <div class="payment-detail" id="paymentDetail"></div>
+        <button class="btn btn-orange full" id="payBtn" type="button">我已完成支付，提交登记 <span class="arrow">↗</span></button>
+        <button class="back-link" id="backToStep1" type="button">← 返回修改金额</button>
+        <p class="secure-note">提交后会进入待核验状态；管理员核对微信账单后计入共享账本。</p>
+      </section>
+
+      <section class="checkout-step" data-step="3" hidden>
+        <div class="success">
+          <div class="success-mark">✓</div>
+          <span class="success-kicker">RECEIPT / 待核验登记</span>
+          <h3>心意，登记好了。</h3>
+          <p id="successLead">登记已提交。管理员核对微信账单后，这笔心意会出现在共享账本里。</p>
+          <div class="receipt" id="successReceipt"></div>
+          <div class="success-actions">
+            <button class="btn btn-dark" id="shareBtn" type="button">分享给朋友 <span class="arrow">↗</span></button>
+            <button class="btn text-btn" type="button" data-close-modal>先这样</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</div>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ============================================================================
+     CONFIG · 想改价格 / 收款方式 / 初始账本，改这里就好
+     ============================================================================ -->
+<script>
+window.FUND_CONFIG = {
+  recipient: "WAGZAO",
+
+  /* 演示模式：true 时不会真实扣款。当前已接入微信收款码，所以为 false。 */
+  demoMode: false,
+
+  /* 默认机型 / 容量 / 颜色，对应下方 IPHONE_CATALOG 里的 id */
+  defaultModelId: "iphone-duo",
+  defaultStorageId: "256",
+  defaultColorId: "night-sky",
+
+  /* 票面上的默认快捷金额 */
+  quickAmounts: [52, 131.4, 520, 1314],
+
+  /* 支付方式。当前使用微信个人收款码，内嵌在 HTML 中。
+     qr 填收款码图片 / data URI；link 可填收款页面链接。 */
+  paymentMethods: [
+    { id: "wechat", name: "微信支付", note: "扫码", account: "ElWag(**奥)", qr: "assets/wechat-qr.png", link: "" }
+  ],
+
+  /* 初始账本。正式使用时换成真实记录；id 不要重复。
+     amount 单位：元。 */
+  /* 初始账本留空：真实收款页不伪造已收到的金额。
+     如果你有真实、已核对的记录，可以按下面的格式补进来：
+     { id: "real-1", name: "朋友", amount: 520, message: "加油", dateLabel: "已到账", initial: "友", color: "#f4d35e" } */
+  seedSupporters: []
+};
+
+/* 价格参考 Apple 中国官网国行售价（人民币），单位：元
+   iPhone Duo：256GB ¥15,999 / 512GB ¥17,999 / 1TB ¥21,499 / 2TB ¥26,499 */
+window.IPHONE_CATALOG = [
+  {
+    id: "iphone-duo",
+    name: "iPhone Duo",
+    short: "Duo",
+    blurb: "合上像护照，打开是整个朋友圈的偏心。",
+    colors: [
+      { id: "night-sky", name: "夜空色", hex: "#2b3348", edge: "#111622", highlight: "#7a86a1" },
+      { id: "starlight", name: "星光白", hex: "#e7e2d8", edge: "#9d978b", highlight: "#fffdf8" }
+    ],
+    storages: [
+      { id: "256", label: "256GB", price: 15999 },
+      { id: "512", label: "512GB", price: 17999 },
+      { id: "1tb", label: "1TB", price: 21499 },
+      { id: "2tb", label: "2TB", price: 26499 }
+    ]
+  }
+];
+</script>
+<script>
+/* APP LOGIC */
+(function () {
+  "use strict";
+
+  const CONFIG = window.FUND_CONFIG;
+  const CATALOG = window.IPHONE_CATALOG;
+  const moneyFmt = new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 2 });
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+  const money = (n) => "¥" + moneyFmt.format(Number(n) || 0);
+  const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+  const escapeHTML = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+
+  const modelById = (id) => CATALOG.find((m) => m.id === id) || CATALOG[0];
+  const initialModel = modelById(CONFIG.defaultModelId);
+  const initialStorage = (initialModel.storages.find((s) => s.id === CONFIG.defaultStorageId) || initialModel.storages[1] || initialModel.storages[0]);
+  const initialColor = (initialModel.colors.find((c) => c.id === CONFIG.defaultColorId) || initialModel.colors[0]);
+
+  const state = {
+    modelId: initialModel.id,
+    storageId: initialStorage.id,
+    colorId: initialColor.id,
+    supporters: [],
+    serverOnline: false,
+    checkout: { step: 1, amount: 520, method: "wechat", name: "", contact: "", message: "", anonymous: false, lastReceipt: null }
+  };
+  let lastFocused = null;
+  let toastTimer = null;
+  let duoTimer = null;
+  let duoCount = 0;
+
+  const modal = $("#checkoutModal");
+  const amountInput = $("#amountInput");
+  const nameInput = $("#supporterName");
+  const contactInput = $("#supporterContact");
+  const messageInput = $("#supporterMessage");
+  const anonInput = $("#anonToggle");
+  const payBtn = $("#payBtn");
+  const toPaymentBtn = $("#toPaymentBtn");
+
+  function getModel() { return modelById(state.modelId); }
+  function getStorage() {
+    const model = getModel();
+    return model.storages.find((s) => s.id === state.storageId) || model.storages[0];
+  }
+  function getColor() {
+    const model = getModel();
+    return model.colors.find((c) => c.id === state.colorId) || model.colors[0];
+  }
+  function getTarget() { return getStorage().price; }
+  function getAllSupporters() {
+    return state.supporters.concat(CONFIG.seedSupporters || []);
+  }
+  function getTotal() {
+    return getAllSupporters().reduce((sum, s) => sum + (Number(s.amount) || 0), 0);
+  }
+  function getMetrics() {
+    const target = getTarget();
+    const total = getTotal();
+    const percent = target > 0 ? clamp((total / target) * 100, 0, 100) : 0;
+    return {
+      target,
+      total,
+      percent,
+      percentLabel: (percent >= 100 ? 100 : percent).toFixed(1).replace(/\.0$/, "") + "%",
+      remaining: Math.max(target - total, 0),
+      count: getAllSupporters().length
+    };
+  }
+
+  function setText(selector, value) {
+    $$(selector).forEach((el) => { el.textContent = value; });
+  }
+
+  function applyPhoneTheme(color) {
+    const root = document.documentElement;
+    root.style.setProperty("--phone-color", color.hex);
+    root.style.setProperty("--phone-edge", color.edge);
+    root.style.setProperty("--phone-highlight", color.highlight);
+    root.style.setProperty("--phone-glow", hexToRgba(color.hex, 0.33));
+  }
+  function hexToRgba(hex, alpha) {
+    const h = String(hex).replace("#", "");
+    const n = parseInt(h.length === 3 ? h.split("").map((x) => x + x).join("") : h, 16);
+    return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
+  }
+
+  function renderProof() {
+    const all = getAllSupporters();
+    const m = getMetrics();
+    const avatars = $("#proofAvatars");
+    const palette = ["#f4d35e", "#c8d6b9", "#f0b39f", "#c9d8e8", "#e5c3a7"];
+    if (avatars) {
+      if (!all.length) {
+        avatars.innerHTML = '<span class="proof-avatar plus">+</span>';
+      } else {
+        avatars.innerHTML = all.slice(0, 3).map((s, i) => {
+          const initial = escapeHTML(s.initial || String(s.name || "友").slice(0, 1));
+          const color = escapeHTML(s.color || palette[i % palette.length]);
+          return `<span class="proof-avatar" style="background:${color}">${initial}</span>`;
+        }).join("");
+        if (all.length > 3) avatars.innerHTML += `<span class="proof-avatar plus">+${all.length - 3}</span>`;
+      }
+    }
+    const copy = $("#proofText");
+    if (!copy) return;
+    if (!all.length) {
+      copy.innerHTML = `<strong>第一笔心意</strong>，等你来写<br><span data-hero-goal>还差 ${escapeHTML(money(m.remaining))}</span>，一起把 Duo 送到他手里。`;
+    } else {
+      copy.innerHTML = `<strong><span data-supporters>${all.length}</span> 位朋友</strong>已经加入<br><span data-hero-goal>${m.remaining > 0 ? "还差 " + escapeHTML(money(m.remaining)) : "已经凑够啦"}</span>，就能让他把旧手机折进抽屉。`;
+    }
+  }
+
+  function renderMetrics() {
+    renderProof();
+    const m = getMetrics();
+    const model = getModel();
+    const storage = getStorage();
+    const color = getColor();
+    const configLabel = `${storage.label} · ${color.name}`;
+    setText("[data-total]", money(m.total));
+    setText("[data-target]", money(m.target));
+    setText("[data-remaining]", m.remaining > 0 ? money(m.remaining) : "已达标");
+    setText("[data-percent]", m.percentLabel);
+    setText("[data-supporters]", String(m.count));
+    setText("[data-model-name]", model.name);
+    setText("[data-config-name]", configLabel);
+    setText("[data-color-name]", color.name);
+    setText("[data-config-price]", money(m.target));
+    setText("[data-preview-price]", money(m.target));
+    setText("[data-checkout-target]", money(m.target));
+    setText("[data-checkout-config]", `${model.name} · ${configLabel}`);
+    setText("[data-ticket-gap]", m.remaining > 0 ? money(m.remaining) : "已达成");
+    setText("[data-percent-caption]", m.total > 0 ? "已凑到" : "刚刚开始");
+    setText("[data-percent-kicker]", m.total > 0 ? "ALREADY" : "START HERE");
+    document.documentElement.style.setProperty("--progress", m.percent.toFixed(2) + "%");
+    $$("[data-progress-bar], [data-widget-bar]").forEach((el) => { el.style.width = m.percent.toFixed(2) + "%"; });
+    const heroGoal = $("[data-hero-goal]");
+    if (heroGoal) heroGoal.textContent = m.remaining > 0 ? `还差 ${money(m.remaining)}` : "已经凑够啦";
+    const checkoutSummary = $("#payOrderSummary");
+    if (checkoutSummary) {
+      checkoutSummary.innerHTML = m.remaining > 0
+        ? `用于 WAGZAO 的 iPhone Duo 基金<br>还差 ${escapeHTML(money(m.remaining))} 就凑够`
+        : `目标已经达成 🎉<br>多出来的算 Apple Pencil 基金`;
+    }
+    updatePaymentButton();
+  }
+
+  function renderCatalog() {
+    const model = getModel();
+    const storage = getStorage();
+    const color = getColor();
+
+    const modelTabs = $("#modelTabs");
+    if (modelTabs) {
+      modelTabs.innerHTML = CATALOG.map((m) => {
+        const from = m.storages[0].price;
+        return `<button class="model-tab" type="button" data-model="${m.id}" aria-pressed="${m.id === model.id}" aria-label="${m.name}，${money(from)}起">
+          <strong>${m.name}</strong><small>${money(from)} 起</small>
+        </button>`;
+      }).join("");
+    }
+    const modelBlurb = $("#modelBlurb");
+    if (modelBlurb) modelBlurb.textContent = model.blurb;
+
+    $("#colorList").innerHTML = model.colors.map((c) => `
+      <button class="color-btn" type="button" data-color="${c.id}" aria-pressed="${c.id === color.id}" aria-label="颜色：${c.name}">
+        <span class="color-dot" style="--c:${c.hex}"></span>${c.name}
+      </button>`).join("");
+
+    $("#storageList").innerHTML = model.storages.map((s) => `
+      <button class="storage-btn" type="button" data-storage="${s.id}" aria-pressed="${s.id === storage.id}" aria-label="${s.label}，${money(s.price)}">
+        <strong>${s.label}</strong><small>${money(s.price)}</small>
+      </button>`).join("");
+
+    $("#storageCaption").textContent = storage.label;
+    applyPhoneTheme(color);
+    renderMetrics();
+    buildAmountPresets();
+  }
+
+  function selectModel(id) {
+    if (!CATALOG.some((m) => m.id === id)) return;
+    state.modelId = id;
+    const model = getModel();
+    state.storageId = model.storages[0].id;
+    state.colorId = model.colors[0].id;
+    renderCatalog();
+    renderLedger();
+  }
+  function selectStorage(id) {
+    const storage = getModel().storages.find((s) => s.id === id);
+    if (!storage) return;
+    state.storageId = id;
+    renderCatalog();
+    renderLedger();
+  }
+  function selectColor(id) {
+    const color = getModel().colors.find((c) => c.id === id);
+    if (!color) return;
+    state.colorId = id;
+    renderCatalog();
+  }
+
+  async function refreshLedger(options = {}) {
+    const mode = $("#ledgerMode");
+    try {
+      const response = await fetch("/api/state", { cache: "no-store" });
+      if (!response.ok) throw new Error("ledger unavailable");
+      const data = await response.json();
+      if (!data || data.ok !== true || !Array.isArray(data.contributions)) throw new Error("bad ledger payload");
+      state.supporters = data.contributions;
+      state.serverOnline = true;
+      if (mode) {
+        mode.textContent = "共享账本 · 已同步";
+        mode.classList.remove("is-offline");
+      }
+      renderMetrics();
+      renderLedger();
+      if (options.announce) showToast("账本已刷新。");
+    } catch (err) {
+      state.serverOnline = false;
+      if (mode) {
+        mode.textContent = "账本连接失败";
+        mode.classList.add("is-offline");
+      }
+      if (options.announce) showToast("账本暂时连不上，请确认本地服务正在运行。");
+    }
+  }
+
+  function renderLedger() {
+    const all = getAllSupporters();
+    const list = $("#ledgerList");
+    if (!list) return;
+    if (!all.length) {
+      list.innerHTML = '<div class="ledger-empty">还没有人出手。第一笔，等你来写。</div>';
+      return;
+    }
+    list.innerHTML = all.map((s, i) => {
+      const name = escapeHTML(s.name || "一位朋友");
+      const message = escapeHTML(s.message || "悄悄支持了一下。");
+      const amount = money(s.amount);
+      const initial = escapeHTML(s.initial || String(s.name || "友").slice(0, 1));
+      const color = s.color || ["#f4d35e", "#c8d6b9", "#f0b39f", "#c9d8e8", "#e5c3a7"][i % 5];
+      return `<div class="ledger-row">
+        <span class="ledger-avatar" style="--avatar:${escapeHTML(color)}">${initial}</span>
+        <div class="ledger-info">
+          <div class="ledger-name">${name}${s.id && String(s.id).indexOf("user-") === 0 ? '<span class="mini-tag">NEW</span>' : ""}</div>
+          <p>${message}</p>
+        </div>
+        <div class="ledger-amt">+${escapeHTML(amount)}<small>${escapeHTML(s.dateLabel || "刚刚")}</small></div>
+      </div>`;
+    }).join("");
+  }
+
+  function buildAmountPresets() {
+    const m = getMetrics();
+    const gap = Math.ceil(m.remaining * 100) / 100;
+    const amounts = Array.from(new Set([...(CONFIG.quickAmounts || [52, 131.4, 520, 1314]), gap].filter((n) => n > 0)));
+    const presetRoot = $("#checkoutPresets");
+    if (presetRoot) {
+      presetRoot.innerHTML = amounts.map((n) => {
+        const label = n === gap ? `${money(n)} · 补齐` : money(n);
+        return `<button class="amount-preset" type="button" data-preset-amount="${n}">${label}</button>`;
+      }).join("");
+    }
+    const ticketRoot = $("#ticketPresets");
+    if (ticketRoot) {
+      ticketRoot.innerHTML = (CONFIG.quickAmounts || [52, 131.4, 520, 1314]).map((n) => `<button class="ticket-preset" type="button" data-amount="${n}">${money(n)}</button>`).join("");
+    }
+    syncPresetActive();
+  }
+
+  function syncPresetActive() {
+    $$("#checkoutPresets [data-preset-amount]").forEach((btn) => {
+      btn.classList.toggle("is-active", Number(btn.dataset.presetAmount) === Number(state.checkout.amount));
+    });
+  }
+
+  function setCheckoutAmount(value) {
+    state.checkout.amount = Number(value) || 0;
+    amountInput.value = state.checkout.amount || "";
+    syncPresetActive();
+    updatePaymentButton();
+  }
+
+  function renderSteps() {
+    $$(".step-indicator").forEach((el) => {
+      const n = Number(el.dataset.stepIndicator);
+      el.classList.toggle("is-active", n === state.checkout.step);
+      el.classList.toggle("is-done", n < state.checkout.step);
+    });
+    $$(".checkout-step").forEach((el) => {
+      el.hidden = Number(el.dataset.step) !== state.checkout.step;
+    });
+    const box = $(".checkout");
+    if (box) box.scrollTop = 0;
+  }
+
+  function openCheckout(amount) {
+    lastFocused = document.activeElement;
+    state.checkout.step = 1;
+    state.checkout.amount = Number(amount) > 0 ? Number(amount) : 520;
+    state.checkout.method = (CONFIG.paymentMethods[0] && CONFIG.paymentMethods[0].id) || "wechat";
+    state.checkout.name = "";
+    state.checkout.contact = "";
+    state.checkout.message = "";
+    state.checkout.anonymous = false;
+    nameInput.value = "";
+    if (contactInput) contactInput.value = "";
+    messageInput.value = "";
+    anonInput.checked = false;
+    amountInput.value = state.checkout.amount;
+    renderCatalog();
+    buildAmountPresets();
+    renderPaymentMethods();
+    renderPaymentDetail();
+    renderSteps();
+    syncPresetActive();
+    updatePaymentButton();
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    setTimeout(() => {
+      const box = $(".checkout");
+      if (box) box.focus({ preventScroll: true });
+    }, 120);
+  }
+
+  function closeCheckout() {
+    if (!modal.classList.contains("is-open")) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+    if (lastFocused && typeof lastFocused.focus === "function") {
+      try { lastFocused.focus({ preventScroll: true }); } catch (err) {}
+    }
+  }
+
+  function updatePaymentButton() {
+    if (!toPaymentBtn) return;
+    const amount = Number(state.checkout.amount) || 0;
+    const payAmountDisplay = $("#payAmountDisplay");
+    if (payAmountDisplay) payAmountDisplay.textContent = money(amount);
+    toPaymentBtn.innerHTML = `继续付款 · ${escapeHTML(money(amount))} <span class="arrow">↗</span>`;
+    if (payBtn && state.checkout.step === 2) {
+      if (CONFIG.demoMode) {
+        payBtn.innerHTML = `演示支付 ${escapeHTML(money(amount))} <span class="arrow">↗</span>`;
+      } else {
+        const method = getPaymentMethod();
+        payBtn.innerHTML = method && (method.qr || method.link)
+          ? `我已完成支付，提交登记 <span class="arrow">↗</span>`
+          : `收款方式待配置`;
+      }
+    }
+  }
+
+  function goToPayment() {
+    const amount = Number(amountInput.value);
+    if (!amount || amount <= 0) {
+      showToast("先填一个大于 0 的金额吧。");
+      amountInput.focus();
+      return;
+    }
+    if (amount > 100000) {
+      showToast("金额太大了，这台手机装不下。");
+      amountInput.focus();
+      return;
+    }
+    state.checkout.amount = Math.round(amount * 100) / 100;
+    state.checkout.name = nameInput.value.trim();
+    state.checkout.contact = contactInput ? contactInput.value.trim() : "";
+    state.checkout.message = messageInput.value.trim();
+    state.checkout.anonymous = anonInput.checked;
+    state.checkout.step = 2;
+    renderPaymentMethods();
+    renderPaymentDetail();
+    renderSteps();
+    updatePaymentButton();
+  }
+
+  function getPaymentMethod() {
+    return (CONFIG.paymentMethods || []).find((m) => m.id === state.checkout.method);
+  }
+  function methodIcon(id) {
+    if (id === "wechat") return "微";
+    if (id === "alipay") return "支";
+    return "Pay";
+  }
+
+  function renderPaymentMethods() {
+    const root = $("#paymentMethods");
+    if (!root) return;
+    root.innerHTML = (CONFIG.paymentMethods || []).map((m) => `
+      <button class="pay-method ${m.id === state.checkout.method ? "is-active" : ""}" type="button" data-method="${escapeHTML(m.id)}" aria-pressed="${m.id === state.checkout.method}">
+        <span class="method-icon ${escapeHTML(m.id)}">${methodIcon(m.id)}</span>
+        <span><b>${escapeHTML(m.name)}</b><small>${escapeHTML(m.note || "")}</small></span>
+      </button>`).join("");
+  }
+
+  function renderPaymentDetail() {
+    const root = $("#paymentDetail");
+    if (!root) return;
+    const method = getPaymentMethod();
+    if (!method) {
+      root.innerHTML = '<div class="demo-terminal"><p>没有可用的支付方式，请在 CONFIG 中配置。</p></div>';
+      return;
+    }
+    if (CONFIG.demoMode) {
+      root.innerHTML = `<div class="demo-terminal">
+        <span class="terminal-light"></span><b>DEMO TERMINAL</b><span>READY</span>
+        <p>已选择 ${escapeHTML(method.name)}。这是演示支付流程，不会真实扣款，也不会收集任何支付信息。</p>
+      </div>`;
+      return;
+    }
+    if (method.qr) {
+      root.innerHTML = `<div class="pay-qr-box">
+        <div class="pay-qr-head">
+          <span class="method-icon wechat">微</span>
+          <div><b>微信扫码支付</b><small>收款人 ${escapeHTML(method.account || "WAGZAO")}</small></div>
+        </div>
+        <img src="${escapeHTML(method.qr)}" alt="微信收款码">
+        <p>请扫码支付 ${escapeHTML(money(state.checkout.amount))}。手机端可长按识别，或截图后用微信扫一扫。<br>支付完成后，点击下方按钮登记心意。</p>
+      </div>`;
+    } else if (method.link) {
+      root.innerHTML = `<div class="pay-link-box"><p>将前往 ${escapeHTML(method.name)} 完成支付，支付后回来登记。</p><a class="btn btn-dark" href="${escapeHTML(method.link)}" target="_blank" rel="noopener noreferrer">前往支付 <span class="arrow">↗</span></a></div>`;
+    } else {
+      root.innerHTML = `<div class="demo-terminal"><p>${escapeHTML(method.name)} 还没有配置收款码或链接，请在文件顶部的 CONFIG 中补充。</p></div>`;
+    }
+    updatePaymentButton();
+  }
+
+  function renderReceipt(c) {
+    const receipt = $("#successReceipt");
+    if (!receipt) return;
+    const model = getModel();
+    const storage = getStorage();
+    const color = getColor();
+    const targetLabel = c.target || `${model.name} · ${storage.label} · ${color.name}`;
+    const receiptNo = c.code || c.receipt || "WZ-PENDING";
+    const displayName = c.anonymous ? "匿名（仅管理员可见）" : (c.name || "一位朋友");
+    receipt.innerHTML = `
+      <div class="receipt-row"><span>RECEIPT NO.</span><span>${escapeHTML(receiptNo)}</span></div>
+      <div class="receipt-row"><span>支持人</span><span>${escapeHTML(displayName)}</span></div>
+      <div class="receipt-row"><span>礼物目标</span><span>${escapeHTML(targetLabel)}</span></div>
+      <div class="receipt-row"><span>留言</span><span>${escapeHTML(c.message || "没有留言，但心意到了。")}</span></div>
+      <div class="receipt-row"><span>支付方式</span><span>微信支付 · 待核验</span></div>
+      <div class="receipt-row total"><span>本次心意</span><span>${escapeHTML(money(c.amount))}</span></div>`;
+    const lead = $("#successLead");
+    if (lead) {
+      lead.textContent = `登记已提交。管理员核对微信账单后，这笔 ${money(c.amount)} 会出现在共享账本里。`;
+    }
+  }
+
+  async function processPayment() {
+    if (state.checkout.step !== 2) return;
+    const method = getPaymentMethod();
+    if (!method || (!method.qr && !method.link)) {
+      showToast("收款方式还没配置，请先补上收款码。");
+      return;
+    }
+    payBtn.disabled = true;
+    const original = payBtn.innerHTML;
+    payBtn.innerHTML = '<span class="spinner"></span> 正在提交登记…';
+    try {
+      const response = await fetch("/api/claims", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: state.checkout.name || "一位朋友",
+          contact: state.checkout.contact || "",
+          amount: state.checkout.amount,
+          message: state.checkout.message || "悄悄支持了一下。",
+          target: `${getStorage().label} · ${getColor().name}`,
+          anonymous: state.checkout.anonymous
+        })
+      });
+      let data = {};
+      try { data = await response.json(); } catch (err) { data = {}; }
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "登记提交失败，请稍后再试。");
+      }
+      state.checkout.lastReceipt = data.claim;
+      renderReceipt(data.claim);
+      state.checkout.step = 3;
+      renderSteps();
+      burstConfetti();
+    } catch (err) {
+      const msg = err && err.name === "TypeError"
+        ? "无法连接账本服务，请确认 start.command 正在运行。"
+        : (err.message || "登记提交失败，请稍后再试。");
+      showToast(msg);
+    } finally {
+      payBtn.disabled = false;
+      payBtn.innerHTML = original;
+    }
+  }
+
+  function showToast(text) {
+    const toast = $("#toast");
+    toast.textContent = text;
+    toast.classList.add("is-visible");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2800);
+  }
+
+  function burstConfetti() {
+    if (reduceMotion) return;
+    const canvas = $("#confetti");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    ctx.scale(dpr, dpr);
+    const colors = ["#ff5c1a", "#f4d35e", "#17130f", "#f5f1e8", "#ffb083", "#c8d6b9"];
+    const particles = Array.from({ length: 110 }, () => ({
+      x: window.innerWidth * 0.5 + (Math.random() - 0.5) * 160,
+      y: window.innerHeight * 0.34 + (Math.random() - 0.5) * 50,
+      vx: (Math.random() - 0.5) * 10,
+      vy: -Math.random() * 9 - 3,
+      gravity: 0.24 + Math.random() * 0.15,
+      w: 4 + Math.random() * 7,
+      h: 6 + Math.random() * 8,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      rot: Math.random() * Math.PI,
+      vr: (Math.random() - 0.5) * 0.25,
+      life: 1
+    }));
+    let start = null;
+    function frame(ts) {
+      if (!start) start = ts;
+      const elapsed = ts - start;
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      particles.forEach((p) => {
+        p.vy += p.gravity;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.992;
+        p.rot += p.vr;
+        p.life = Math.max(0, 1 - elapsed / 2400);
+        ctx.save();
+        ctx.globalAlpha = p.life;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+      if (elapsed < 2500) requestAnimationFrame(frame);
+      else ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function spawnHearts(x, y) {
+    if (reduceMotion) return;
+    for (let i = 0; i < 12; i++) {
+      const heart = document.createElement("span");
+      heart.className = "heart-bit";
+      heart.textContent = ["♥", "✦", "♡"][i % 3];
+      heart.style.left = (x + (Math.random() - 0.5) * 100) + "px";
+      heart.style.top = (y + (Math.random() - 0.5) * 40) + "px";
+      heart.style.fontSize = (11 + Math.random() * 10) + "px";
+      heart.style.animationDelay = (Math.random() * 0.2) + "s";
+      document.body.appendChild(heart);
+      window.setTimeout(() => heart.remove(), 1800);
+    }
+  }
+
+  async function sharePage() {
+    const payload = {
+      title: "送WAGZAO一部iPhone Duo",
+      text: "来凑一份？WAGZAO 的 iPhone Duo 基金正在营业。",
+      url: window.location.href
+    };
+    if (navigator.share) {
+      try {
+        await navigator.share(payload);
+        return;
+      } catch (err) {
+        if (err && err.name === "AbortError") return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(payload.url);
+      showToast("链接已复制，去绑架朋友。");
+    } catch (err) {
+      const ta = document.createElement("textarea");
+      ta.value = payload.url;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      let ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      ta.remove();
+      showToast(ok ? "链接已复制，去绑架朋友。" : "请复制浏览器地址栏的链接分享。");
+    }
+  }
+
+  /* ---------- events ---------- */
+  document.addEventListener("click", (event) => {
+    const openBtn = event.target.closest("[data-open-checkout]");
+    if (openBtn) {
+      const ticketAmount = openBtn.getAttribute("data-amount");
+      openCheckout(ticketAmount ? Number(ticketAmount) : undefined);
+      return;
+    }
+    if (event.target.closest("[data-close-modal]")) {
+      closeCheckout();
+      return;
+    }
+    const modelBtn = event.target.closest("[data-model]");
+    if (modelBtn) { selectModel(modelBtn.dataset.model); return; }
+    const storageBtn = event.target.closest("[data-storage]");
+    if (storageBtn) { selectStorage(storageBtn.dataset.storage); return; }
+    const colorBtn = event.target.closest("[data-color]");
+    if (colorBtn) { selectColor(colorBtn.dataset.color); return; }
+    const presetBtn = event.target.closest("[data-preset-amount]");
+    if (presetBtn) {
+      setCheckoutAmount(Number(presetBtn.dataset.presetAmount));
+      return;
+    }
+    const ticketPreset = event.target.closest(".ticket-preset[data-amount]");
+    if (ticketPreset) {
+      openCheckout(Number(ticketPreset.dataset.amount));
+      return;
+    }
+    const methodBtn = event.target.closest("[data-method]");
+    if (methodBtn) {
+      state.checkout.method = methodBtn.dataset.method;
+      renderPaymentMethods();
+      renderPaymentDetail();
+      updatePaymentButton();
+      return;
+    }
+    if (event.target.closest("#toPaymentBtn")) { goToPayment(); return; }
+    if (event.target.closest("#payBtn")) { processPayment(); return; }
+    if (event.target.closest("#backToStep1")) {
+      state.checkout.step = 1;
+      renderSteps();
+      return;
+    }
+    if (event.target.closest("#shareBtn")) { sharePage(); return; }
+  });
+
+  amountInput.addEventListener("input", () => {
+    state.checkout.amount = Number(amountInput.value) || 0;
+    syncPresetActive();
+    updatePaymentButton();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      if (modal.classList.contains("is-open")) closeCheckout();
+      return;
+    }
+    if (event.key === "Tab" && modal.classList.contains("is-open")) {
+      const focusables = $$('button, [href], input, textarea, [tabindex]:not([tabindex="-1"])', modal).filter((el) => !el.disabled && el.offsetParent !== null);
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); first.focus();
+      }
+    }
+  });
+
+  $("#duoButton").addEventListener("click", (event) => {
+    duoCount += 1;
+    window.clearTimeout(duoTimer);
+    duoTimer = window.setTimeout(() => { duoCount = 0; }, 1600);
+    spawnHearts(event.clientX, event.clientY);
+    if (duoCount >= 3) {
+      duoCount = 0;
+      showToast("duo 是暗号，意思是：快打钱。");
+      spawnHearts(window.innerWidth / 2, window.innerHeight / 2);
+    }
+  });
+
+  window.addEventListener("scroll", () => {
+    $("#siteHeader").classList.toggle("is-scrolled", window.scrollY > 12);
+  }, { passive: true });
+
+  const revealObserver = ("IntersectionObserver" in window) ? new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-in");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }) : null;
+  $$(".reveal").forEach((el) => {
+    if (revealObserver) revealObserver.observe(el);
+    else el.classList.add("is-in");
+  });
+
+  if (!CONFIG.demoMode) {
+    $$("[data-demo-only]").forEach((el) => el.remove());
+  }
+
+  const refreshLedgerBtn = $("#refreshLedgerBtn");
+  if (refreshLedgerBtn) {
+    refreshLedgerBtn.addEventListener("click", () => refreshLedger({ announce: true }));
+  }
+
+  renderCatalog();
+  renderLedger();
+  buildAmountPresets();
+  renderMetrics();
+  refreshLedger();
+  window.setInterval(() => {
+    if (!document.hidden) refreshLedger();
+  }, 15000);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) refreshLedger();
+  });
+})();
+</script>
+</body>
+</html>

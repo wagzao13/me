@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>核验台 · 送WAGZAO一部iPhone Duo</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2316120e'/%3E%3Cpath d='M17 20h8l7 17 7-17h8L36 48h-8L17 20Z' fill='%23ff5c1a'/%3E%3C/svg%3E">
+<style>
+:root{--paper:#f5f1e8;--card:#fffdf8;--ink:#17130f;--muted:#81786a;--line:rgba(23,19,15,.16);--orange:#ff5c1a;--orange-deep:#e8480a;--green:#2f7d58;--butter:#f4d35e;--sans:"Helvetica Neue","PingFang SC","Hiragino Sans GB",Arial,sans-serif;--mono:"SFMono-Regular",Menlo,Consolas,monospace;--serif:"Songti SC","STSong","Times New Roman",serif}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+button,input{font:inherit}button{color:inherit}
+a{color:inherit}
+.wrap{width:min(1160px,calc(100% - 48px));margin:0 auto}
+.topbar{border-bottom:1px solid var(--line);background:rgba(245,241,232,.86);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);position:sticky;top:0;z-index:20}
+.topbar-inner{height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+.brand-mark{width:33px;height:33px;border-radius:9px;background:var(--ink);color:var(--orange);display:grid;place-items:center;font-weight:800;transform:rotate(-4deg)}
+.brand b{display:block;font-size:11px;letter-spacing:.01em}
+.brand small{display:block;color:var(--muted);font-family:var(--mono);font-size:6.5px;letter-spacing:.12em;margin-top:2px}
+.top-actions{display:flex;gap:8px;align-items:center}
+.ghost-btn,.mini-btn{border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 12px;font-size:9px;cursor:pointer;transition:.2s}
+.ghost-btn:hover,.mini-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.solid-btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:999px;padding:11px 17px;font-size:10px;font-weight:600;cursor:pointer;transition:.2s}
+.solid-btn:hover{background:#2a241d}
+.orange-btn{border:1px solid var(--orange);background:var(--orange);color:#fff;border-radius:999px;padding:11px 17px;font-size:10px;font-weight:600;cursor:pointer;transition:.2s}
+.orange-btn:hover{background:var(--orange-deep)}
+.solid-btn:disabled,.orange-btn:disabled{opacity:.5;cursor:wait}
+.login-screen{min-height:calc(100vh - 70px);display:grid;place-items:center;padding:50px 0}
+.login-card{width:min(470px,100%);background:var(--card);border:1.5px solid var(--ink);border-radius:24px;padding:34px;box-shadow:9px 9px 0 var(--ink)}
+.kicker{font-family:var(--mono);font-size:8px;letter-spacing:.13em;color:var(--muted)}
+.login-card h1{font-size:37px;letter-spacing:-.055em;line-height:1.05;margin:13px 0 0;font-weight:750}
+.login-card p{font-size:10.5px;line-height:1.75;color:var(--muted);margin:13px 0 0}
+.key-field{display:flex;align-items:center;gap:8px;margin-top:23px;border:1.2px solid var(--ink);border-radius:10px;padding:11px 12px;background:var(--paper)}
+.key-field input{width:100%;border:0;background:transparent;outline:0;font-family:var(--mono);font-size:11px;color:var(--ink)}
+.login-card .orange-btn{width:100%;margin-top:12px;min-height:47px;font-size:11px}
+.hint{margin-top:15px;padding:11px;border:1px dashed var(--line);border-radius:9px;font-family:var(--mono);font-size:7px;line-height:1.7;color:var(--muted)}
+.error-text{min-height:16px;color:var(--orange-deep);font-size:9px;margin-top:7px}
+.dashboard{padding:48px 0 80px}
+.dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;padding-bottom:29px;border-bottom:1px solid var(--line)}
+.dash-head h1{font-size:clamp(36px,4.5vw,58px);line-height:1.04;letter-spacing:-.06em;margin:10px 0 0;font-weight:750}
+.dash-head h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--orange)}
+.dash-head p{max-width:370px;margin:0 0 5px;font-size:10px;line-height:1.8;color:var(--muted);text-align:right}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:25px 0 32px}
+.stat{background:var(--card);border:1.2px solid var(--ink);border-radius:15px;padding:17px 18px}
+.stat span{display:block;font-family:var(--mono);font-size:7px;letter-spacing:.1em;color:var(--muted)}
+.stat strong{display:block;font-size:27px;line-height:1.1;letter-spacing:-.06em;margin-top:7px;font-weight:750}
+.stat:first-child{background:var(--butter)}
+.admin-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:start}
+.panel{background:var(--card);border:1.2px solid var(--ink);border-radius:18px;overflow:hidden}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:20px 21px;border-bottom:1px solid var(--line)}
+.panel-head h2{font-size:17px;letter-spacing:-.04em;margin:0;font-weight:700}
+.panel-head .mini-btn{font-size:7px;padding:6px 9px}
+.claim-list{padding:0 21px}
+.claim-card{padding:19px 0;border-bottom:1px solid var(--line)}
+.claim-card:last-child{border-bottom:0}
+.claim-top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.claim-code{font-family:var(--mono);font-size:7px;letter-spacing:.08em;color:var(--muted)}
+.claim-amount{font-size:18px;letter-spacing:-.05em;font-weight:700}
+.claim-person{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:10px}
+.claim-person b{font-size:11px}
+.claim-person span{font-family:var(--mono);font-size:7px;color:var(--muted)}
+.claim-message{font-family:var(--serif);font-size:12px;line-height:1.65;color:var(--ink);background:rgba(244,211,94,.2);border-radius:7px;padding:8px 10px;margin:10px 0 0}
+.claim-meta{font-family:var(--mono);font-size:6.5px;line-height:1.7;color:var(--muted);margin-top:9px}
+.claim-actions{display:flex;gap:7px;margin-top:12px}
+.approve-btn{border:1px solid var(--green);border-radius:7px;background:var(--green);color:#fff;padding:8px 11px;font-size:8px;cursor:pointer}
+.approve-btn:hover{background:#245f42}
+.reject-btn{border:1px solid var(--line);border-radius:7px;background:transparent;padding:8px 11px;font-size:8px;color:var(--muted);cursor:pointer}
+.reject-btn:hover{border-color:var(--orange);color:var(--orange-deep)}
+.empty{padding:36px 20px;text-align:center;font-size:10px;color:var(--muted)}
+.history{padding:0 21px;max-height:620px;overflow:auto}
+.history-row{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid rgba(23,19,15,.08)}
+.history-row:last-child{border-bottom:0}
+.history-avatar{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;font-size:9px;font-weight:650;background:var(--butter);flex-shrink:0}
+.history-info{min-width:0;flex:1}
+.history-info b{display:block;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.history-info span{display:block;font-family:var(--mono);font-size:6px;color:var(--muted);margin-top:2px}
+.history-amount{font-family:var(--mono);font-size:9px;font-weight:600;white-space:nowrap}
+.admin-note{margin-top:20px;padding:14px 16px;border:1px dashed #bbae9d;border-radius:11px;font-size:8px;line-height:1.8;color:var(--muted);background:rgba(255,253,248,.34)}
+.admin-note b{color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,15px);opacity:0;background:var(--ink);color:var(--paper);border-radius:999px;padding:11px 17px;font-size:9px;z-index:50;transition:.25s;pointer-events:none;max-width:calc(100% - 30px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:780px){
+  .wrap{width:calc(100% - 28px)}
+  .topbar-inner{height:61px}
+  .dashboard{padding:32px 0 55px}
+  .dash-head{display:block}
+  .dash-head p{text-align:left;margin-top:12px}
+  .stats{gap:6px;margin:18px 0 22px}
+  .stat{padding:13px 12px;border-radius:11px}
+  .stat strong{font-size:20px}
+  .admin-grid{grid-template-columns:1fr}
+  .claim-list,.history{padding:0 15px}
+  .panel-head{padding:16px 15px}
+  .login-card{padding:26px 22px;box-shadow:6px 7px 0 var(--ink)}
+  .login-card h1{font-size:32px}
+  .dash-head h1{font-size:38px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark">W</span>
+      <span><b>iPhone Duo 核验台</b><small>FRIENDS FUND / ADMIN</small></span>
+    </a>
+    <div class="top-actions">
+      <a class="ghost-btn" href="/" style="text-decoration:none">回主页面</a>
+      <button class="ghost-btn" id="logoutBtn" type="button" hidden>退出</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="kicker">ADMIN / 人工核验</div>
+      <h1>先核对微信账单，<br>再放行心意。</h1>
+      <p>这里不自动读取微信账单。看到一笔转账后，用核验密钥进入，核对金额和微信昵称，再决定通过或驳回。</p>
+      <div class="key-field">
+        <input id="keyInput" type="password" autocomplete="off" placeholder="粘贴 ADMIN_KEY.txt 里的密钥">
+      </div>
+      <button class="orange-btn" id="loginBtn" type="button">进入核验台</button>
+      <div class="error-text" id="loginError"></div>
+      <div class="hint">核验密钥保存在项目文件夹的 ADMIN_KEY.txt，不会出现在网页源代码里。密钥只保存在当前标签页的 sessionStorage。</div>
+    </div>
+  </section>
+
+  <section class="dashboard" id="dashboard" hidden>
+    <div class="wrap">
+      <div class="dash-head">
+        <div><div class="kicker">THE FRIENDS FUND / 核验台</div><h1>账要核清，<br>心意才<em>算数</em>。</h1></div>
+        <p>每一条登记都先进入待核验区。对照微信账单后，通过的那一笔才会进入公开账本和进度。</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><span>待核验</span><strong id="pendingCount">0</strong></div>
+        <div class="stat"><span>已入账总额</span><strong id="verifiedTotal">¥0</strong></div>
+        <div class="stat"><span>已通过笔数</span><strong id="verifiedCount">0</strong></div>
+      </div>
+      <div class="admin-grid">
+        <section class="panel">
+          <div class="panel-head"><h2>待核验登记</h2><button class="mini-btn" id="refreshBtn" type="button">刷新</button></div>
+          <div class="claim-list" id="pendingList"></div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><h2>最近已通过</h2><span class="kicker" id="syncText">—</span></div>
+          <div class="history" id="verifiedList"></div>
+        </section>
+      </div>
+      <p class="admin-note"><b>核验规则：</b>请以微信账单里的实际到账金额、时间和昵称为准。页面上的“通过”只代表你确认了这笔转账，不会自动操作微信或退款。驳回后不会进入公开账本。</p>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+  const moneyFmt = new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 2 });
+  const money = (n) => "¥" + moneyFmt.format(Number(n) || 0);
+  const escapeHTML = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const KEY_NAME = "wagzao-admin-key";
+  let token = sessionStorage.getItem(KEY_NAME) || "";
+  let timer = null;
+
+  function toast(text) {
+    const el = $("#toast");
+    el.textContent = text;
+    el.classList.add("show");
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove("show"), 2500);
+  }
+
+  function showLogin(message) {
+    token = "";
+    sessionStorage.removeItem(KEY_NAME);
+    $("#dashboard").hidden = true;
+    $("#loginScreen").hidden = false;
+    $("#logoutBtn").hidden = true;
+    if (message) $("#loginError").textContent = message;
+    if (timer) clearInterval(timer);
+    timer = null;
+    setTimeout(() => $("#keyInput").focus(), 50);
+  }
+
+  function showDashboard() {
+    $("#loginScreen").hidden = true;
+    $("#dashboard").hidden = false;
+    $("#logoutBtn").hidden = false;
+    $("#loginError").textContent = "";
+  }
+
+  async function api(path, options = {}) {
+    const res = await fetch(path, {
+      ...options,
+      headers: {
+        ...(options.headers || {}),
+        "X-Admin-Key": token
+      }
+    });
+    if (res.status === 401) {
+      showLogin("密钥不对或已经失效，请重新输入。");
+      throw new Error("unauthorized");
+    }
+    let data = {};
+    try { data = await res.json(); } catch (e) { data = {}; }
+    if (!res.ok || !data.ok) throw new Error(data.error || "请求失败");
+    return data;
+  }
+
+  function formatTime(iso) {
+    if (!iso) return "—";
+    try {
+      return new Date(iso).toLocaleString("zh-CN", { hour12: false });
+    } catch (e) { return iso; }
+  }
+
+  function renderPending(items) {
+    const root = $("#pendingList");
+    if (!items.length) {
+      root.innerHTML = '<div class="empty">没有待核验的登记。<br>朋友提交后，会出现在这里。</div>';
+      return;
+    }
+    root.innerHTML = items.map((c) => `
+      <article class="claim-card" data-claim-id="${c.id}">
+        <div class="claim-top"><span class="claim-code">${escapeHTML(c.code)}</span><span class="claim-amount">${money(c.amount)}</span></div>
+        <div class="claim-person"><b>${escapeHTML(c.name)}</b><span>微信：${escapeHTML(c.contact || "未填写")}</span>${c.anonymous ? '<span>· 公开匿名</span>' : ""}</div>
+        <p class="claim-message">“${escapeHTML(c.message)}”</p>
+        <div class="claim-meta">目标：${escapeHTML(c.target || "未填写")}<br>提交：${escapeHTML(formatTime(c.createdAt))}</div>
+        <div class="claim-actions">
+          <button class="approve-btn" type="button" data-action="approve" data-id="${c.id}">核对到账，通过</button>
+          <button class="reject-btn" type="button" data-action="reject" data-id="${c.id}">驳回</button>
+        </div>
+      </article>`).join("");
+  }
+
+  function renderVerified(items) {
+    const root = $("#verifiedList");
+    if (!items.length) {
+      root.innerHTML = '<div class="empty">还没有已通过的记录。</div>';
+      return;
+    }
+    root.innerHTML = items.map((c, i) => `
+      <div class="history-row">
+        <span class="history-avatar" style="background:${["#f4d35e","#c8d6b9","#f0b39f","#c9d8e8","#e5c3a7"][i % 5]}">${escapeHTML(c.name.slice(0,1) || "友")}</span>
+        <div class="history-info"><b>${escapeHTML(c.name)}</b><span>${escapeHTML(c.code)} · ${escapeHTML(formatTime(c.reviewedAt))}</span></div>
+        <span class="history-amount">+${money(c.amount)}</span>
+      </div>`).join("");
+  }
+
+  async function loadData(silent = false) {
+    if (!token) return;
+    try {
+      const data = await api("/api/admin/claims");
+      showDashboard();
+      $("#pendingCount").textContent = data.stats.pendingCount;
+      $("#verifiedTotal").textContent = money(data.stats.verifiedTotal);
+      $("#verifiedCount").textContent = data.stats.verifiedCount;
+      $("#syncText").textContent = "已更新 " + new Date().toLocaleTimeString("zh-CN", { hour12: false });
+      renderPending(data.pending);
+      renderVerified(data.verified);
+      if (!silent) $("#loginError").textContent = "";
+    } catch (err) {
+      if (err.message === "unauthorized") return;
+      if (!silent) toast(err.message || "读取失败");
+    }
+  }
+
+  async function login() {
+    const key = $("#keyInput").value.trim();
+    if (!key) {
+      $("#loginError").textContent = "先粘贴核验密钥。";
+      return;
+    }
+    $("#loginBtn").disabled = true;
+    $("#loginError").textContent = "正在连接…";
+    token = key;
+    try {
+      const res = await fetch("/api/admin/claims", { headers: { "X-Admin-Key": token } });
+      if (res.status === 401) {
+        showLogin("密钥不对，请检查 ADMIN_KEY.txt。");
+        return;
+      }
+      if (!res.ok) throw new Error("连接失败");
+      const data = await res.json();
+      sessionStorage.setItem(KEY_NAME, token);
+      showDashboard();
+      $("#pendingCount").textContent = data.stats.pendingCount;
+      $("#verifiedTotal").textContent = money(data.stats.verifiedTotal);
+      $("#verifiedCount").textContent = data.stats.verifiedCount;
+      renderPending(data.pending);
+      renderVerified(data.verified);
+      startPolling();
+    } catch (err) {
+      showLogin("连不上核验服务，请确认 start.command 正在运行。");
+    } finally {
+      $("#loginBtn").disabled = false;
+    }
+  }
+
+  async function review(action, id) {
+    const path = action === "approve" ? "/api/admin/approve" : "/api/admin/reject";
+    try {
+      await api(path, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: Number(id) })
+      });
+      toast(action === "approve" ? "已通过，公开账本已更新。" : "已驳回。");
+      await loadData(true);
+    } catch (err) {
+      if (err.message !== "unauthorized") toast(err.message || "操作失败");
+    }
+  }
+
+  function startPolling() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(() => {
+      if (!document.hidden) loadData(true);
+    }, 15000);
+  }
+
+  $("#loginBtn").addEventListener("click", login);
+  $("#keyInput").addEventListener("keydown", (e) => { if (e.key === "Enter") login(); });
+  $("#logoutBtn").addEventListener("click", () => showLogin());
+  $("#refreshBtn").addEventListener("click", () => loadData());
+  $("#pendingList").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-action]");
+    if (!btn) return;
+    review(btn.dataset.action, btn.dataset.id);
+  });
+
+  if (token) {
+    loadData(true).then(() => { if (!$("#dashboard").hidden) startPolling(); });
+  } else {
+    showLogin();
+  }
+})();
+</script>
+</body>
+</html>
